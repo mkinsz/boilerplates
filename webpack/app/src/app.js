@@ -3,8 +3,9 @@ import moment from 'moment';
 
 const App = () => (
     <div>
-        <h1 style={{color: 'red'}}>React</h1>
-        <h2> {moment().format('YYYY-MM-DD hh:mm:ss')}</h2>
+        <h2>😀 😎 👍 💯</h2>
+        <h2 style={{ color: 'red' }}>React</h2>
+        <h3> {moment().format('YYYY-MM-DD hh:mm:ss')}</h3>
     </div>
 );
 

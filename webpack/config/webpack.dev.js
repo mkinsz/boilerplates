@@ -1,5 +1,6 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { merge } = require('webpack-merge');
 
 const config = require('./webpack.cfg');
@@ -11,7 +12,7 @@ module.exports = merge(common, {
     mode: 'development',
     devtool: 'source-map',
     output: {
-        pathinfo: true
+        pathinfo: true,
     },
     devServer: {
         publicPath: '/',
@@ -47,10 +48,6 @@ module.exports = merge(common, {
             inject: true,
             favicon: config.publicDir + '/favicon.ico',
             template: config.publicDir + '/index.html'
-        }),
-        // 如果需要启动 DLL 编译，则使用该插件
-        // new webpack.DllReferencePlugin({
-        //   manifest: path.resolve(__dirname, '../build/dll/manifest.json')
-        // })
+        })
     ],
 });
