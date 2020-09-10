@@ -14,9 +14,26 @@ module.exports = merge(common, {
     output: {
         pathinfo: true,
     },
+    optimization: {
+        namedModules: true,
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    config.lessLoader
+                ]
+            }
+        ]
+    },
     devServer: {
-        publicPath: '/',
-        contentBase: config.sourceDir,
         compress: true,
         open: false,
         host: '0.0.0.0',
@@ -31,9 +48,6 @@ module.exports = merge(common, {
             warnings: true,
             errors: true
         }
-    },
-    stats: {
-        children: false
     },
     plugins: [
         new webpack.NamedModulesPlugin(), // 在控制台中输出可读的模块名
@@ -50,4 +64,13 @@ module.exports = merge(common, {
             template: config.publicDir + '/index.html'
         })
     ],
+    stats: {
+        children: false
+    },
+    externals: {
+        // global app config object
+        config: JSON.stringify({
+            apiUrl: 'http://localhost:4000'
+        })
+    }
 });

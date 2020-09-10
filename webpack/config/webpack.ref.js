@@ -21,9 +21,21 @@ module.exports = {
         rules: [
             {
                 test: /\.(js|jsx)?$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /node_modules/,
                 loader: 'babel-loader'
             },
+            {
+                test: /\.css$/,
+                use: ['style-loader', 'css-loader']
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    config.lessLoader
+                ]
+            }
         ]
     },
     plugins: [
@@ -43,4 +55,11 @@ module.exports = {
             ],
         }),
     ],
+    resolve: {
+        extensions: ['.js', '.jsx'],
+        alias: {
+            '@': config.appDir,
+            'jQuery': config.assetsDir + '/js/jquery.min.js'
+        },
+    }
 };
