@@ -1,32 +1,38 @@
-import { createStore, applyMiddleware } from 'redux';
-// import thunkMiddleware from 'redux-thunk';
-// import { createLogger } from 'redux-logger';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
 
-// const loggerMiddleware = createLogger();
+const loggerMiddleware = createLogger();
 
-// export const store = createStore(
-//     rootReducer,
-//     // applyMiddleware(
-//     //     thunkMiddleware,
-//     //     loggerMiddleware
-//     // )
-// );
+// const composeEnhancers =
+// 	typeof window === 'object' &&
+// 		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ ?
+// 		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
+// 			// Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
+// 		}) : compose;
 
-const makeStore = () => {
-	// const composeEnhancers = composeWithDevTools({});
+export const store = createStore(
+	rootReducer,
+	// composeEnhancers(
+		applyMiddleware(
+			thunkMiddleware,
+			// loggerMiddleware
+		)
+	// )
+);
 
-	const store = createStore(
-		rootReducer, 
-		// composeEnhancers
-		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-	);
+// const makeStore = () => {
+// 	const store = createStore(
+// 		rootReducer, 
+// 		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+// 	);
 
-	if ('production' !== process.env.NODE_ENV && module.hot)
-		module.hot.accept('../reducers', () => store.replaceReducer(reducers));
+// 	if ('production' !== process.env.NODE_ENV && module.hot)
+// 		module.hot.accept('../reducers', () => store.replaceReducer(reducers));
 
-	return store;
-};
+// 	return store;
+// };
 
 
-export const store = makeStore();
+// export const store = makeStore();

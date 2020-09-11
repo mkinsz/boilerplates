@@ -8,12 +8,14 @@ const HomePage = () => {
     const users = useSelector(state => state.users)
     const user = useSelector(state => state.authentication.user)
 
+    const actions = userActions()
+
     React.useEffect(() => {
-        userActions.getAll()
+        actions.getAll()
     }, [])
 
     const handleDeleteUser = id => {
-        return (e) => userActions.delete(id);
+        return (e) => actions.delete(id);
     }
 
     return (
