@@ -16,11 +16,21 @@ module.exports = merge(common, {
     devtool: false,
     optimization: {
         minimize: true,
-        runtimeChunk: 'single',
+        runtimeChunk: {
+            name: entrypoint => `runtime~${entrypoint.name}`
+        },
         splitChunks: {
+            chunks: 'async',
+            minSize: 20000,
+            maxSize: 0,
+            minChunks: 1,
+            maxAsyncRequests: 30,
+            maxInitialRequests: 30,
+            automaticNameDelimiter: '~',
+            enforceSizeThreshold: 50000,
             cacheGroups: {
                 vendors: {
-                    test: /node_modules/,
+                    test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
                     enforce: true,
                     chunks: 'initial'

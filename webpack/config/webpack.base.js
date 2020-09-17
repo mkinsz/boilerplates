@@ -60,5 +60,11 @@ module.exports = {
             '@': config.appDir,
             'jQuery': config.assetsDir + '/js/jquery.min.js'
         },
+    },
+    externals: {
+        // global app config object
+        config: JSON.stringify({
+            apiUrl: 'http://localhost:4000'
+        })
     }
 };
