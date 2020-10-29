@@ -1,6 +1,6 @@
 const webpack = require('webpack');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const { merge } = require('webpack-merge');
 
 const config = require('./webpack.cfg');
@@ -50,20 +50,10 @@ module.exports = merge(common, {
         }
     },
     plugins: [
-        new webpack.NamedModulesPlugin(), // 在控制台中输出可读的模块名
-        new webpack.HotModuleReplacementPlugin(), //模块热替换
-        new webpack.NoEmitOnErrorsPlugin(), // 避免发出包含错误的模块
         new webpack.DefinePlugin({ PRODUCTION: JSON.stringify(false) }),
-        new HtmlWebpackPlugin({
-            title: 'React',
-            removeComments: true, // 移除HTML中的注释
-            collapseWhitespace: true, // 删除空白符与换行符
-            minifyCSS: true, // 压缩内联css
-            inject: true,
-            favicon: config.publicDir + '/favicon.ico',
-            template: config.publicDir + '/index.html'
-        })
-    ],
+        new webpack.HotModuleReplacementPlugin(), //模块热替换
+        new ReactRefreshWebpackPlugin(),
+    ].filter(Boolean),
     stats: {
         children: false
     }

@@ -4,6 +4,10 @@ import { connect, useSelector } from 'react-redux';
 
 import { userActions } from '../actions';
 
+var Config = require('gConfig')
+
+console.log('Webpack Config: ', Config.serverUrl)
+
 const HomePage = () => {
     const users = useSelector(state => state.users)
     const user = useSelector(state => state.authentication.user)

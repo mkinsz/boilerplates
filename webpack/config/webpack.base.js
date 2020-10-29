@@ -49,22 +49,28 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Boilerplate',
-            template: 'public/index.html',
-            inject: 'body',
+            title: 'React',
+            removeComments: true, // 移除HTML中的注释
+            collapseWhitespace: true, // 删除空白符与换行符
+            minifyCSS: true, // 压缩内联css
+            inject: true,
+            favicon: config.publicDir + '/favicon.ico',
+            template: config.publicDir + '/index.html'
         }),
     ],
     resolve: {
         extensions: ['.js', '.jsx'],
         alias: {
             '@': config.appDir,
-            'jQuery': config.assetsDir + '/js/jquery.min.js'
+            'jQuery': config.assetsDir + '/js/jquery.min.js',
+            
         },
     },
     externals: {
         // global app config object
         config: JSON.stringify({
             apiUrl: 'http://localhost:4000'
-        })
+        }),
+        gConfig: JSON.stringify(process.env.ENV === 'production' ? require('./config.prod.json') : require('./config.dev.json'))
     }
 };
