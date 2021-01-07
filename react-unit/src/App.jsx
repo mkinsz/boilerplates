@@ -1,10 +1,14 @@
 import React from "react";
 import "./App.css";
 import "./assets/font/iconfont.css";
+import Test from './components/Test'
 
 const App = () => {
   return (
-    <>React Unit</>
+    <>
+      <div>React Unit</div>
+      <Test></Test>
+    </>
   );
 };
 
