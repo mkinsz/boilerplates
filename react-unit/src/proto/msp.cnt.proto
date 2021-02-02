@@ -1,0 +1,75 @@
+syntax = "proto3";
+package msp.cnt;
+import "google/protobuf/any.proto";
+
+message Msg {
+    Head head = 1;
+    google.protobuf.Any body = 2;
+}
+
+message Head {
+    string uri = 1;
+    string token = 2;
+    string err = 3;
+    fixed32 len = 4;
+    fixed32 serial = 5;
+    fixed64 context = 6;
+}
+
+message String {
+    string value = 1;
+}
+
+message Query {
+    string sn = 1; //所属平台标识
+    fixed32 id = 2; //所属位置标识
+    fixed32 subid = 3; //所属子位置标识
+    fixed32 offset = 4; //起始位置
+    fixed32 size = 5; //查询个数，0: 查询所有
+    fixed32  exid= 6;
+}
+
+message ValueU32 {
+    fixed32 value = 1;
+}
+
+message FileTrans {
+    string ip = 1;
+    fixed32 port = 2;
+    string username = 3;
+    string password = 4;
+    string path = 5;
+    string filename = 6;
+}
+
+message TransCfg {
+    string name = 1;
+    fixed32 type = 2;
+    fixed32 size = 3;
+    fixed32 opt = 4;
+    fixed32 checksum=5;
+    fixed32 objid=6;
+    fixed32 no=7;
+}
+
+enum EDATAST {
+    EDTOK = 0;
+    EDTTOKEN = 1;
+    EDTLINK = 2;
+    EDTMSG = 3;
+}
+
+message Notify {
+    string token = 1;
+    fixed32 state = 2;
+}
+
+message GroupMem
+{
+    fixed32  id          = 1;
+    fixed32  nextid      = 2;
+    string	name		= 3;
+    fixed32  groupid     = 4;
+    fixed32  online      = 5;
+}
+

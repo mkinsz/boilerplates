@@ -1,0 +1,141 @@
+syntax = "proto3";
+
+import 'msp.cnt.proto';
+package msp.cnt.kvm;
+
+/******************************坐席管理**************************************/
+
+message Advanced {
+    fixed32 front = 1;
+    fixed32 back = 2;
+    fixed32 syncwidth = 3;
+    fixed32 syncpolar = 4;
+}
+
+message KvmTv {
+    fixed32 id = 1;
+    fixed32 outid = 2;
+    repeated fixed32 arrayin = 3;
+}
+
+message KvmInfo {
+    string name = 1;
+    fixed32 id = 2;
+    fixed32 row = 3;
+    fixed32 col = 4;
+    fixed32 module = 5;
+    bool menu = 6;
+    repeated KvmTv arraytv = 7;
+    repeated fixed32 arraysrc = 8;
+}
+
+message KvmInfoList {
+    repeated KvmInfo kvminfo = 1;
+}
+
+message MonitorInfo {
+    fixed32 tvid = 1;
+    fixed32 id = 2;
+    fixed32 module = 3;
+    fixed32 scantype = 4;
+    fixed32 width = 5;
+    fixed32 height = 6;
+    fixed32 fresh = 7;
+    Advanced advhor = 8;
+    Advanced advver = 9;
+    fixed32 flag = 10;
+}
+
+message KvmPush {
+    fixed32 id = 1;
+    fixed32 startx = 2;
+    fixed32 starty = 3;
+    fixed32 width = 4;
+    fixed32 height = 5;
+    fixed32 subid = 6;
+}
+
+message PushCfg {
+    fixed32 id = 1;
+    fixed32 type = 2;
+    repeated KvmPush dstid = 3;
+}
+
+message KvmGroup {
+    fixed32 id = 1;
+    fixed32 parentid = 2;
+    string name = 3;
+    fixed32 memnum = 4;
+}
+
+message KvmGroupList {
+    repeated KvmGroup kvmgroup = 1;
+}
+
+message KvmGroupInfo {
+    repeated ValueU32 member = 1;
+    KvmGroup group = 2;
+    fixed32 id = 3;
+}
+
+message FileParam {
+    fixed32 width = 1;
+    fixed32 height = 2;
+    fixed32 datatype = 3;
+    string name = 4;
+    fixed32 size = 5;
+}
+
+message KvmFile {
+    fixed32 type = 1;
+    fixed32 curnum = 2;
+    fixed32 offset = 3;
+    fixed32 total = 4;
+    repeated FileParam param = 5;
+}
+
+message KvmFileNotify {
+    fixed32 num = 1;
+    fixed32 kvmnum = 2;
+    repeated fixed32 id = 3;
+}
+
+message KvmCfgState {
+    fixed32 state = 1;
+    KvmInfo kvm = 2;
+}
+
+message KvmState {
+    fixed32 id = 1;
+    string ip = 2;
+    string dstip = 3;
+    bool online = 4;
+    bool keylink = 5;
+    bool localkey = 6;
+    bool trslink = 7;
+    bool check = 8;
+    fixed32 type = 9;
+}
+
+message KvmStateList {
+    repeated KvmState kvmstate = 1;
+}
+
+message PowerPrm {
+    fixed32 protocol = 1;
+    fixed32 mode = 2;
+    repeated fixed32 chnid = 3;
+    string ip = 4;
+    string on = 5;
+    string off = 6;
+    string mac = 7;
+    fixed32 slot = 8;
+}
+
+message ChnList {
+    repeated fixed32 chnid = 1;
+}
+
+message PowerPrms {
+    repeated PowerPrm powerprm = 1;
+}

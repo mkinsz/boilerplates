@@ -1,0 +1,141 @@
+@import './custom.less';
+
+.ptz_contain {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    
+
+    .top_contain {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .left_area {
+            position: relative;
+            width: 130px;
+            height: 130px;
+
+            .outer_bak {
+                width: 130px;
+                height: 130px;
+                border-radius: 50%;
+                box-shadow: 0px 0px 6px rgba(153,153,153,0.15);
+            }
+
+            .direction {
+                position: absolute;
+                display: grid;
+                grid-template-columns: auto auto auto;
+                grid-gap: 5px;
+            }
+
+            .left_btn {
+                width: 40px;
+                height: 40px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                & svg {
+                    width: 22px;
+                    height: 22px;
+                    fill: @main-color;
+
+                    &:disabled {
+                        fill: @main-disabled;
+                    }
+            
+                    &:hover {
+                        opacity: 0.6;
+                    }
+                }
+            
+                .inner_circle {
+                    width: 40px;
+                    height: 40px;
+                    position: absolute;
+            
+                    &:hover {
+                        opacity: 0.6;
+                    }
+                }
+            }
+        }
+
+        .mid_area {
+            display: grid;
+            grid-template-columns: auto auto;
+            grid-gap: 10px;
+
+            .button {
+                width: 40px;
+                height: 40px;
+                -webkit-transition-duration: 0.4s; /* Safari */
+                transition-duration: 0.4s;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0px 0px 6px rgba(153,153,153,0.15);
+            
+                svg {
+                    width: 22px;
+                    height: 22px;
+                    fill: #4999FF;
+            
+                    &:hover {
+                        opacity: 0.6;
+                    }
+                }
+            }
+        }
+
+        .right_area {
+            display: flex;
+            flex-direction: column;
+            width: 30px; height: 140px;
+            align-items: center;
+            box-shadow: 0px 0px 6px rgba(153,153,153,0.15);
+
+            .right_head {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                font-size: 12px;
+                padding-right: 2px;
+
+                svg {
+                    width: 10px;
+                    height: 22px;
+                    fill: #4999FF;
+                }
+            }
+        
+            .slider {
+                flex-grow: 1;
+                .ant-slider-mark {
+                    display: none;
+                }
+            }
+        }
+    }
+
+    .bottom_contain {
+        margin-top: 10px;
+
+        .btn_grids {
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: auto auto auto auto auto auto;
+            grid-gap: 8px;
+
+            .ant-btn-primary {
+                width: inherit;
+                height: inherit;
+                border-radius: 2px;
+            }
+        }
+    }
+}

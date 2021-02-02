@@ -1,0 +1,34 @@
+syntax = "proto3";
+
+package msp.nmc;
+
+message PcBdInfo {
+    fixed32 id = 1;
+    string name = 2;
+    fixed32 slot = 3;
+    bool online = 4;
+    bool power = 5;
+    fixed32 runtime = 6;
+}
+
+message PcBdInfoList {
+    repeated PcBdInfo pcdbinfo = 1;
+}
+
+message PcBdList {
+    repeated fixed32 id = 1;
+}
+
+message UpgradeSt {
+    fixed32 type = 1;
+    fixed32 progress = 2;
+    string error = 3;
+}
+
+enum EPCBDTYPE {
+    EPCBD1837 = 0;
+    EPCBDPW = 1;
+    EPCBDP1 = 2;
+    EPCBDP2 = 3;
+    EPCBDFAN = 4;
+}

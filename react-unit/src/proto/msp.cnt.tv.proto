@@ -1,0 +1,126 @@
+syntax = "proto3";
+
+import "msp.cnt.proto";
+package msp.cnt.tv;
+
+message TvBasic {
+    string name = 1;
+    fixed32 id = 2;
+    bool kvm = 3;
+    fixed32 rate = 4;
+    fixed32 row = 5;
+    fixed32 col = 6;
+    fixed32 width = 7;
+    fixed32 height = 8;
+    fixed32 cellnum = 9;
+    fixed32 backid = 10;
+}
+
+message TvList {
+    repeated TvBasic tvbasic = 1;
+}
+
+message TvCell {
+    fixed32 id = 1;
+    fixed32 chnid = 2;
+    fixed32 startx = 3;
+    fixed32 starty = 4;
+    fixed32 width = 5;
+    fixed32 hight = 6;
+}
+
+message TvCellList {
+    repeated TvCell tvcell = 1;
+}
+
+message TvInfo {
+    TvBasic base = 1;
+    fixed32 package = 2;
+    repeated TvCell cellls = 3;
+}
+
+message TvBack {
+    fixed32 id = 1;
+    bool exist = 2;
+    fixed32 state = 3;
+    fixed32 tvid = 4;
+    string name = 5;
+    fixed32 startx = 6;
+    fixed32 starty = 7;
+    fixed32 width = 8;
+    fixed32 height = 9;
+}
+
+message TvBackList {
+    repeated TvBack tvback = 1;
+}
+
+message BackTrans {
+    fixed32 id = 1;
+    fixed32 tvid = 2;
+    fixed32 no = 3;
+    string url = 4;
+}
+
+message BackTransList {
+    repeated BackTrans backtrans = 1;
+}
+
+message BackState {
+    fixed32 state = 1;
+    TvBack back = 2;
+}
+
+message OSD {
+    fixed32 id = 1;
+    bool visible = 2;
+    bool adaption = 3;
+    fixed32 startx = 4;
+    fixed32 starty = 5;
+    fixed32 width = 6;
+    fixed32 height = 7;
+    string fontname = 8;
+    fixed32 fontstyle = 9;
+    fixed32 fontsize = 10;
+    fixed32 fontform = 11;
+    fixed32 direction = 12;
+    fixed32 fontclr = 13;
+    string context = 14;
+}
+
+message OSDList {
+    fixed32 id = 1;
+    repeated OSD osd = 2;
+}
+
+message OsdStatus {
+    fixed32 tvid = 1;
+    fixed32 id = 2;
+    fixed32 state = 3;
+    fixed32 exist = 4;
+}
+
+message OsdStatusList {
+    repeated OsdStatus osdstatus = 1;
+}
+
+
+
+
+
+message OsdFile {
+    fixed32 tvid = 1;
+    fixed32 id = 2;
+    fixed32 filesize = 3;
+    fixed32 checksum = 4;
+}
+
+message OSDCtrl {
+    fixed32 id = 1;
+    bool use = 2;
+}
+
+message TvState {
+    ValueU32 state = 1;
+    TvBasic base = 2;
+}

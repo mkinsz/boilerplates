@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="13px" height="90px" viewBox="0 0 13 90" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>left bar</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="139.140653%" y1="45.3028359%" x2="0%" y2="45.3028359%" id="linearGradient-1">
+            <stop stop-color="#77B9F9" offset="0%"></stop>
+            <stop stop-color="#618BF1" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="画板" transform="translate(-376.000000, -464.000000)">
+            <g id="编组-10" transform="translate(376.000000, 464.000000)">
+                <path d="M0,0 L8.35246542,3.85498404 C11.1856688,5.16261636 13,7.99825151 13,11.1186591 L13,78.8813409 C13,82.0017485 11.1856688,84.8373836 8.35246542,86.145016 L0,90 L0,90 L0,0 Z" id="Rectangle-33" fill="url(#linearGradient-1)" transform="translate(6.500000, 45.000000) scale(-1, 1) rotate(-180.000000) translate(-6.500000, -45.000000) "></path>
+                <path d="M6,51 C7.1045695,51 8,51.8954305 8,53 C8,54.1045695 7.1045695,55 6,55 C4.8954305,55 4,54.1045695 4,53 C4,51.8954305 4.8954305,51 6,51 Z M6,43 C7.1045695,43 8,43.8954305 8,45 C8,46.1045695 7.1045695,47 6,47 C4.8954305,47 4,46.1045695 4,45 C4,43.8954305 4.8954305,43 6,43 Z M6,35 C7.1045695,35 8,35.8954305 8,37 C8,38.1045695 7.1045695,39 6,39 C4.8954305,39 4,38.1045695 4,37 C4,35.8954305 4.8954305,35 6,35 Z" id="Combined-Shape-Copy-9" fill="#FFFFFF" transform="translate(6.000000, 45.000000) scale(-1, 1) rotate(-180.000000) translate(-6.000000, -45.000000) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

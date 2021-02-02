@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+import 'msp.cnt.sch.proto';
+package msp.cnt.wds;
+ 
+message WinState {
+    Window window = 1;
+    fixed32 state = 2;
+}
+
+message Subwindow {
+    fixed32 id = 1;
+    fixed32 srcid = 2;
+    string error = 3;
+}
+
+message MergeWnd {
+    msp.cnt.sch.Tswid id = 1;
+    fixed32 style = 2;
+    repeated Subwindow subwindow = 3;
+}
+
+message MergeWnds {
+    repeated MergeWnd mergewnd = 1;
+}
+
+message Rect {
+    sint32 x = 1;
+    sint32 y = 2;
+    fixed32 w = 3;
+    fixed32 h = 4;
+}
+
+message Window {
+    fixed32 id = 1;
+    fixed32 sceneid = 2;
+    fixed32 tvid = 3;
+    fixed32 srcid = 4;
+    Rect layout = 5;
+    fixed32 style = 6;
+    bool audio = 7;
+    fixed32 layer = 8;
+    bool iscut = 9;
+    Rect cut = 10;
+}
+
+message Windows {
+    repeated Window window = 1;
+}
+
+message WndDesc {
+    msp.cnt.sch.Tswid id = 1;
+    string error = 2;
+}
+
+message Reorder
+{
+fixed32  id		    = 1;
+fixed32  sceneid      = 2;
+fixed32  tvid         = 3;
+fixed32  order        = 4;
+}
+
+enum OPCODE {
+    OPTOP = 0;
+    OPBOTTOM = 1;
+    OPUP = 2;
+    OPDOWN = 3;
+    OPOPEN = 4;
+    OPCLOSE = 5;
+    OPCLEAN = 6;
+}
+
+enum PTZCODE {
+    CODENONE = 0;
+    ZOOMLARGER = 11;
+    ZOOMSMALL = 12;
+    FOCUSNEAR = 13;
+    FOCUSFAR = 14;
+    LIGHTLARGER = 15;
+    LIGHTSMALL = 16;
+    MOVEUP = 21;
+    MOVEDOWN = 22;
+    MOVELEFT = 23;
+    MOVERIGHT = 24;
+    MOVELUP = 25;
+    MOVERUP = 26;
+    MOVELDOWN = 27;
+    MOVERDOWN = 28;
+    MOVEAUTO = 29;
+    GOTOPRESET = 39;
+    SETPRESET = 40;
+}
+
+message Ptz {
+    fixed32 id = 1;
+    msp.cnt.sch.Tswid beid = 2;
+    fixed32 param = 3;
+    fixed32 code = 4;
+    fixed32 on = 5;
+}
+
+message RealPlay
+{
+    fixed32	 id		    = 1;
+    string    gbid        = 2;
+    string    url         = 3;
+}
+

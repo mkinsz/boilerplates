@@ -1,0 +1,112 @@
+@base: #F0F2F5;
+@base-hover: hsl(0, 0%, 93%);
+@base-drag: #DDDDDD;
+@base-alter: #FAFBFC;
+@main-color: #4999FF;
+@main-hover: #2196F3;
+@main-input: #F3F7FD;
+@main-disabled: #BEBEBE;
+@base-border: rgba(219, 223, 229, 0.4);
+
+@head-height: 48px;
+@main-height: 30px;
+@main-width: 60px;
+@main-radius: 4px;
+@main-text-left: 11px;
+
+@base-fontcolor: white;
+@disable-fontcolor: #b4b5b8;
+@title-fontsize: 16px;
+
+.scene-btn {
+    .ant-btn {
+        height: @main-height;
+    }
+
+    .dropdown-btn {
+        border-radius: @main-radius;
+        background-color: @main-color;
+        color: @base-fontcolor;
+
+        & :hover {
+            background-color: @main-hover;
+        }
+    }
+
+    .ghost-btn {
+        & svg {
+            fill: #666666;
+            font-size: 22px;
+            width: 25px;
+            height: 25px;
+        }
+
+        &:hover {
+            & svg {
+                fill: @main-hover;
+                width: 25px;
+                height: 25px;
+            }
+        }
+    }
+}
+
+.custom-collapse {
+    .ant-collapse-item {
+        .ant-collapse-header {
+            height: 32px;
+            width: 100%;
+            line-height: 32px;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            background-color: @base-alter;
+        }
+
+        .ant-collapse-content {
+            border-top: 1px solid @base;
+        }
+    }
+}
+
+.custom-switch {
+    .ant-switch {
+        width: 60px;
+    }
+}
+
+.custom-btn {
+    .ant-btn {
+
+    }
+
+    .ant-btn-primary {
+        width: @main-width;
+        height: @main-height;
+        background-color: @main-color;
+        border-radius: @main-radius;
+        color: @base-fontcolor;
+        opacity:0.6;
+
+        &:hover {
+            background-color: @main-hover;
+            opacity: 1;
+        }
+        &:disabled {
+            background-color: @base;
+            color: @disable-fontcolor;
+            opacity: 1;
+        }
+    }
+}
+
+.custom-input {
+    .ant-input-affix-wrapper, .ant-input-number {
+        height: @main-height;
+        border-radius: @main-radius;
+        background-color: @main-input;
+    }
+    
+    .ant-input {
+        background-color: @main-input;
+    }
+}

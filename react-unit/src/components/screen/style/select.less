@@ -1,0 +1,35 @@
+.select {
+    .ant-select {
+        display: flex;
+        border-radius: @main-radius;
+        height: @main-height;
+
+        .ant-select-selector {
+            padding: 0 0 0 @main-text-left;
+            height: @main-height;
+
+            .ant-select-selection-item {
+                padding-right: @main-height;
+            }
+        }
+        
+        .ant-select-arrow {
+            user-select: none;
+            width: @main-height;
+            height: @main-height;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: 0px;
+            margin: 0 0;
+            right: 0px;
+            background: @main-color;
+            border-bottom-right-radius: @main-radius;
+            border-top-right-radius: @main-radius;
+
+            & svg {
+                fill: white;
+            }
+        }
+    }
+}

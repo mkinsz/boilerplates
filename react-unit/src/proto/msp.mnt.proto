@@ -1,0 +1,1140 @@
+syntax = "proto3";
+package msp.mnt;
+import "google/protobuf/any.proto";
+
+message Msg {
+    Head head = 1;
+    google.protobuf.Any body = 2;
+}
+
+message Head {
+    string uri = 1;
+    string token = 2;
+    string err = 3;
+    fixed32 len = 4;
+    fixed32 serial = 5;
+    fixed64 context = 6;
+}
+
+message String {
+    string value = 1;
+}
+
+message Query {
+    string sn = 1; //所属平台标识
+    fixed32 id = 2; //所属位置标识
+    fixed32 subid = 3; //所属子位置标识
+    fixed32 offset = 4; //起始位置
+    fixed32 size = 5; //查询个数，0: 查询所有
+    fixed32 exid = 6;
+}
+
+message ValueU32 {
+    fixed32 value = 1;
+}
+
+message TransCfg {
+    string name = 1;
+    fixed32 type = 2;
+    fixed32 size = 3;
+    fixed32 opt = 4;
+}
+
+enum EDATAST {
+    EDTOK = 0;
+    EDTTOKEN = 1;
+    EDTLINK = 2;
+    EDTMSG = 3;
+}
+
+message Notify {
+    string token = 1;
+    fixed32 state = 2;
+}
+
+message GroupMem {
+    fixed32 id = 1;
+    fixed32 nextid = 2;
+    string name = 3;
+    fixed32 groupid = 4;
+    fixed32 online = 5;
+}
+
+message NetCfg {
+    fixed32 id = 1;
+    string name = 2;
+    bool use = 3;
+    bool dhcp = 4;
+    string ip = 5;
+    fixed32 type = 6;
+    string mask = 7;
+}
+
+message NetCfgList {
+    repeated NetCfg net = 1;
+}
+
+message Lancfg {
+    string ipin = 1;
+    string ipout = 2;
+}
+
+message Umt {
+    fixed32 id = 1;
+    string name = 2;
+    fixed32 type = 3;
+    string ip = 4;
+    fixed32 port = 5;
+    string user = 6;
+    string pass = 7;
+    bool online = 8;
+    string rtsp = 9;
+    fixed32 ipcmedia = 10;
+    fixed32 mtmedia = 11;
+    fixed32 conf = 12;
+    fixed32 device = 13;
+}
+
+message UmtList {
+    repeated Umt umt = 1;
+}
+
+message UmtState {
+    fixed32 id = 1; //UMT ID或点位ID
+    fixed32 state = 2; //设备状态，参见EMUMTOPT_TYPE
+}
+
+message UmtDec {
+    fixed32 id = 1;
+    fixed32 box = 2; //机箱号
+    fixed32 slot = 3; //槽位号
+    fixed32 mode = 4; //拉流模式
+}
+
+message UmtDecList {
+    repeated UmtDec umtdec = 1;
+}
+
+message UmtStateList {
+    repeated UmtState state = 1;
+}
+
+message DecMode {
+    fixed32 box = 1;
+    fixed32 slot = 2;
+    fixed32 mode = 3;
+}
+
+message DecModeList {
+    repeated DecMode mode = 1;
+}
+
+message RdBox {
+    string ip = 1;
+    fixed32 port = 2;
+    bool main = 3;
+}
+
+message RdBoxList {
+    repeated RdBox rdbox = 1;
+}
+
+message RdPort {
+    fixed32 id = 1;
+    fixed32 lbox = 2;
+    fixed32 type = 3;
+    fixed32 lslot = 4;
+    fixed32 lport = 5;
+    fixed32 lstate = 6;
+    fixed32 fslot = 7;
+    fixed32 fport = 8;
+    fixed32 fstate = 9;
+    fixed32 module = 10;
+    bool fit = 11;
+    fixed32 phybox = 12;
+    fixed32 phytype = 13;
+    fixed32 physlot = 14;
+    fixed32 phyport = 15;
+    fixed32 phystate = 16;
+}
+
+message RdPortList {
+    repeated RdPort rdport = 1;
+}
+
+message RdOutput {
+    fixed32 sid = 1;
+    fixed32 did = 2;
+    bool on = 3;
+    string result = 4;
+}
+
+message RdOutputList {
+    repeated RdOutput rdout = 1;
+}
+
+message BoxExt {
+    string inid = 1;
+    string outid = 2;
+}
+
+message BoxExtList {
+    repeated BoxExt box = 1;
+    string type = 2;
+}
+
+message RdPortUpdate {
+    string type = 1;
+    RdPort context = 2;
+}
+
+
+
+message PrePlan {
+    fixed32 id = 1;
+    string name = 2;
+    fixed32 enable = 3;
+    repeated GroupMem chn = 4;
+    fixed32 action = 5;
+}
+
+message PrePlans {
+    repeated PrePlan plan = 1;
+}
+
+message GroupMems {
+    repeated GroupMem chn = 1;
+}
+
+message Ids {
+    repeated fixed32 id = 1;
+}
+
+message QueryChn {
+    fixed32 id = 1;
+    string no = 2;
+    string alias = 3;
+    fixed32 type = 4;
+}
+
+message QueryChnList {
+    repeated QueryChn chn = 1;
+}
+
+message ChnBasic {
+    string name = 1;
+    fixed32 id = 2;
+    fixed32 chntype = 3;
+    fixed32 porttype = 4;
+    bool online = 5;
+    bool line = 6;
+    bool signal = 7;
+    string hid = 8;
+    fixed32 audiotype = 9;
+}
+
+message ChnInfo {
+    ChnBasic base = 1;
+    fixed32 resw = 2;
+    fixed32 resh = 3;
+    fixed32 streamnum = 4;
+    bool avsync = 5;
+    fixed32 aid = 6;
+    fixed32 anum = 7;
+    fixed32 astate = 8;
+    bool ause = 9;
+}
+
+message ChnInfoList {
+    repeated ChnInfo chn = 1;
+}
+
+message ChnGroup {
+    string name = 1;
+    fixed32 id = 2;
+    fixed32 nextid = 3;
+    fixed32 parentid = 4;
+}
+
+message ChnGroupState {
+    ChnGroup group = 1;
+    fixed32 state = 2;
+}
+
+message ChnGroupList {
+    repeated ChnGroup chngroup = 1;
+}
+
+message GroupMemList {
+    fixed32 id = 1;
+    fixed32 state = 2;
+    repeated GroupMem groupmen = 3;
+}
+
+message ChnNetEnalbe {
+    fixed32 id = 1;
+    bool enable = 2;
+}
+
+message ChnNetEnalbeList {
+    repeated ChnNetEnalbe chnnetnable = 1;
+}
+
+message ChnMode {
+    fixed32 id = 1;
+    fixed32 module = 2;
+    fixed32 hdmi = 3;
+    fixed32 line = 4;
+}
+
+message ChnEdid {
+    fixed32 id = 1;
+    string edid = 2;
+}
+
+message Edid {
+    fixed32 id = 1;
+    fixed32 width = 2;
+    fixed32 height = 3;
+    string module = 4;
+    string cfg = 5;
+    string desc = 6;
+}
+
+message EdidList {
+    repeated Edid edid = 1;
+}
+
+message UmtGroup {
+    string name = 1;
+    fixed32 umtid = 2;
+    string id = 3;
+    string parentid = 4;
+    string domain = 5;
+}
+
+message UmtGroupList {
+    repeated UmtGroup umtgroup = 1;
+}
+
+message UmtChn {
+    fixed32 umtid = 1;
+    fixed32 id = 2;
+    string name = 3;
+    string gbid = 4;
+    string parentid = 5;
+    bool online = 6;
+    string ip = 7;
+    string firm = 8;
+    string longitude = 9;
+    string latitude = 10;
+}
+
+message UmtChnList {
+    repeated UmtChn umtchn = 1;
+}
+
+message UmtChnState {
+    UmtChn dev = 1;
+    fixed32 state = 2;
+}
+
+message UmtChnStateList {
+    repeated UmtChnState umtchnstate = 1;
+}
+
+message ComCfg {
+    fixed32 proto = 1;
+    fixed32 type = 2;
+    fixed32 port = 3;
+    bool state = 4;
+    fixed32 databits = 5;
+    fixed32 stopbits = 6;
+    fixed32 parity = 7;
+    fixed32 baudrate = 8;
+    fixed32 id = 9;
+}
+
+message ComPtz {
+    fixed32 id = 1;
+    bool enable = 2;
+}
+
+message Property {
+    fixed32 id = 1;
+    fixed32 type = 2;
+}
+
+message DevBasic {
+    string name = 1;
+    fixed32 box = 2;
+    fixed32 slot = 3;
+    fixed32 hid = 4;
+    fixed32 pid = 5;
+    string mac = 6;
+    string sn = 7;
+    string model = 8;
+    string hwver = 9;
+    string softver = 10;
+    fixed32 fwnum = 11;
+    fixed32 port = 12;
+}
+
+message DevInfo {
+    string sn = 1;
+    string ip = 2;
+    fixed32 type = 3;
+    bool online = 4;
+    fixed32 status = 5;
+    fixed32 portcap = 6;
+    DevBasic base = 7;
+}
+
+message DevList {
+    repeated DevInfo dev = 1;
+}
+
+message SearchCfg {
+    fixed32 timeout = 1;
+}
+
+message SearchDev {
+    string sn = 1;
+    string name = 2;
+    string model = 3;
+    fixed32 slot = 4;
+    string mac = 5;
+    string ip = 6;
+    string mask = 7;
+    string gw = 8;
+    fixed32 runtime = 9;
+    string regip = 10;
+    fixed32 regport = 11;
+    string softver = 12;
+}
+
+message SearchDevList {
+    repeated SearchDev dev = 1;
+}
+
+message RegDev {
+    string mac = 1;
+    string ip = 2;
+    string regip = 3;
+}
+
+message RegDevList {
+    repeated RegDev dev = 1;
+}
+
+message FwInfo {
+    fixed32 no = 1;
+    string name = 2;
+    string softver = 3;
+}
+
+message FwList {
+    string sn = 1;
+    repeated FwInfo fw = 2;
+}
+
+message BatchCfg {
+    string sn = 1;
+    string ip = 2;
+    fixed32 type = 3;
+}
+
+message BatchCfgList {
+    fixed32 meth = 1;
+    repeated BatchCfg batch = 2;
+}
+
+message BatchInfo {
+    fixed32 meth = 1;
+    string body = 2;
+}
+
+message BatchProg {
+    string sn = 1;
+    fixed32 meth = 2;
+    fixed32 progress = 3;
+}
+
+message PackageInfo {
+    string name = 1;
+    string path = 2;
+    string detail = 3;
+}
+
+enum EDEVTYPE {
+    EDEVALL = 0;
+    EDEVASVR = 2;
+    EDEVIN = 3;
+    EDEVOUT = 4;
+    EDEVBOX = 6;
+    EDEVTX = 7;
+    EDEVRX = 8;
+    EDEVDEC = 9;
+    EDEVVSVR = 15;
+    EDEVNMC = 16;
+    EDEV1837 = 17;
+    EDEVMPU = 18;
+    EDEVDANTE = 19;
+}
+
+enum EMMETH {
+    EMREBOOT = 0; //重启
+    EMRESTORE = 1; //恢复出厂
+    EMSETBOX = 2; //设置机箱号
+    EMUPGRADE = 3; //升级
+}
+
+message Advanced {
+    fixed32 front = 1;
+    fixed32 back = 2;
+    fixed32 syncwidth = 3;
+    fixed32 syncpolar = 4;
+}
+
+message KvmTv {
+    fixed32 id = 1;
+    fixed32 outid = 2;
+    repeated fixed32 arrayin = 3;
+}
+
+message KvmInfo {
+    string name = 1;
+    fixed32 id = 2;
+    fixed32 row = 3;
+    fixed32 col = 4;
+    fixed32 module = 5;
+    bool menu = 6;
+    repeated KvmTv arraytv = 7;
+    repeated fixed32 arraysrc = 8;
+}
+
+message KvmInfoList {
+    repeated KvmInfo kvminfo = 1;
+}
+
+message MonitorInfo {
+    fixed32 tvid = 1;
+    fixed32 id = 2;
+    fixed32 module = 3;
+    fixed32 scantype = 4;
+    fixed32 width = 5;
+    fixed32 height = 6;
+    fixed32 fresh = 7;
+    Advanced advhor = 8;
+    Advanced advver = 9;
+    fixed32 flag = 10;
+}
+
+message KvmPush {
+    fixed32 id = 1;
+    fixed32 startx = 2;
+    fixed32 starty = 3;
+    fixed32 width = 4;
+    fixed32 height = 5;
+    fixed32 subid = 6;
+}
+
+message PushCfg {
+    fixed32 id = 1;
+    fixed32 type = 2;
+    repeated KvmPush dstid = 3;
+}
+
+message KvmGroup {
+    fixed32 id = 1;
+    fixed32 parentid = 2;
+    string name = 3;
+    fixed32 memnum = 4;
+}
+
+message KvmGroupList {
+    repeated KvmGroup kvmgroup = 1;
+}
+
+message KvmGroupInfo {
+    repeated ValueU32 member = 1;
+    KvmGroup group = 2;
+    fixed32 id = 3;
+}
+
+message FileParam {
+    fixed32 width = 1;
+    fixed32 height = 2;
+    fixed32 datatype = 3;
+    string name = 4;
+    fixed32 size = 5;
+}
+
+message KvmFile {
+    fixed32 type = 1;
+    fixed32 curnum = 2;
+    fixed32 offset = 3;
+    fixed32 total = 4;
+    repeated FileParam param = 5;
+}
+
+message KvmFileNotify {
+    fixed32 num = 1;
+    fixed32 kvmnum = 2;
+    repeated fixed32 id = 3;
+}
+
+message KvmCfgState {
+    fixed32 state = 1;
+    KvmInfo kvm = 2;
+}
+
+message KvmState {
+    fixed32 id = 1;
+    string ip = 2;
+    string dstip = 3;
+    bool online = 4;
+    bool keylink = 5;
+    bool localkey = 6;
+    bool trslink = 7;
+    bool check = 8;
+    fixed32 type = 9;
+}
+
+message KvmStateList {
+    repeated KvmState kvmstate = 1;
+}
+
+message PowerPrm {
+    fixed32 protocol = 1;
+    fixed32 mode = 2;
+    repeated fixed32 chnid = 3;
+    string ip = 4;
+    string on = 5;
+    string off = 6;
+    string mac = 7;
+    fixed32 slot = 8;
+}
+
+message ChnList {
+    repeated fixed32 chnid = 1;
+}
+
+message PowerPrms {
+    repeated PowerPrm powerprm = 1;
+}
+
+message PcInfo {
+    fixed32 id = 1;
+    string name = 2;
+    string ip = 3;
+    fixed32 port = 4;
+    fixed32 cnntmode = 5;
+}
+
+message PcInfoList {
+    repeated PcInfo pcinfo = 1;
+}
+
+message PcList {
+    repeated fixed32 id = 1;
+}
+
+message Scheme {
+    string name = 1;
+    fixed32 id = 2;
+    fixed32 tvid = 3;
+    fixed32 wndnum = 4;
+}
+
+message Schemes {
+    bool isend = 1;
+    repeated Scheme scheme = 2;
+}
+
+message Tswid {
+    fixed32 id = 1;
+    fixed32 sceneid = 2;
+    fixed32 tvid = 3;
+}
+
+message PollPrm {
+    fixed32 keep = 1;
+    bool issame = 2;
+    fixed32 interval = 3;
+    Tswid beid = 4;
+}
+
+message Poll {
+    repeated PollMem pollmem = 1;
+    PollPrm param = 2;
+    Tswid beid = 3;
+}
+
+message PollMem {
+    fixed32 interval = 1;
+    fixed32 id = 2;
+    string name = 3;
+}
+
+message PollMems {
+    repeated PollMem pollmem = 1;
+}
+
+message SchemeState {
+    ValueU32 state = 1;
+    Scheme scheme = 2;
+}
+
+message PollState {
+    fixed32 state = 1;
+    fixed32 id = 2;
+    Tswid beid = 3;
+}
+
+message PollStates {
+    repeated PollState pollstate = 1;
+}
+
+message FilterForm {
+    fixed32 value = 1;
+    repeated string ip = 2;
+}
+
+message Time {
+    string zone = 1;
+    fixed32 year = 2;
+    fixed32 month = 3;
+    fixed32 day = 4;
+    fixed32 hour = 5;
+    fixed32 minute = 6;
+    fixed32 second = 7;
+}
+
+message AccessCode {
+    string code = 1;
+    bool opt = 2;
+}
+
+message SysLicence {
+    string host = 1;
+    string no = 2;
+    string version = 3;
+    fixed32 type = 4;
+    fixed32 state = 5;
+    sint32 enccap = 6;
+    fixed32 module = 7;
+    repeated fixed32 expdata = 8;
+}
+
+message LicenceState {
+    fixed32 module = 1;
+    bool value = 2;
+    fixed32 effecdue = 3;
+}
+
+message LicenceStateList {
+    repeated LicenceState licence = 1;
+}
+
+message FileInfo {
+    fixed32 size = 1;
+    fixed32 checksum = 2;
+    string name = 3;
+    fixed32 opt = 4;
+}
+
+enum ELICENCEST {
+    ELICNONE = 0;
+    ELICNOT = 20093;
+    ELICEXP = 20094;
+    ELICTYPEERR = 20095;
+    ELICEHOSTERR = 20096;
+    ELICEDATAERR = 20097;
+}
+
+enum ELICENCEBIT {
+    ELICBITKVM = 0;
+    ELICBITVIDEO = 1;
+    ELICBITAUDIO = 2;
+    ELICBITREST = 3;
+    ELICBITZK = 4;
+    ELICBITVS = 5;
+}
+
+message Resource {
+    fixed32 box = 1;
+    fixed32 slot = 2;
+    fixed32 port = 3;
+    fixed32 isuse = 4;
+}
+
+message Recoder {
+    string name = 1;
+    fixed32 id = 2;
+    fixed32 tvid = 3;
+    fixed32 mode = 4;
+    fixed32 states = 5;
+    repeated Resource resource = 6;
+}
+
+message Recoders {
+    repeated Recoder recoder = 1;
+}
+
+message RecoderBoard {
+    string name = 1;
+    fixed32 box = 2;
+    fixed32 slot = 3;
+    fixed32 portnum = 4;
+    fixed32 state = 5;
+}
+
+message RecoderBoards {
+    repeated RecoderBoard recoderboard = 1;
+}
+
+message PlatInfo {
+    string mmsp = 1;
+    string msp = 2;
+    string name = 3;
+    fixed32 mode = 4;
+    fixed32 box = 5;
+    fixed32 state = 6;
+    fixed32 enable = 7;
+    string ip = 8;
+    string domain = 9;
+    fixed32 port = 10;
+    string username = 11;
+    string password = 12;
+}
+
+message PlatInfos {
+    repeated PlatInfo platinfo = 1;
+}
+
+message CascChnl {
+    fixed32 box = 1;
+    fixed32 slot = 2;
+    fixed32 port = 3;
+    fixed32 type = 4;
+    fixed32 cbox = 5;
+    fixed32 cslot = 6;
+    fixed32 cport = 7;
+    string cip = 8;
+}
+
+message CascChnls {
+    repeated CascChnl cascchnl = 1;
+}
+
+message CascPipe {
+    string sn = 1;
+    string url = 2;
+    string param = 3;
+}
+
+message CashChnlPrm {
+    fixed32 opt = 1;
+    repeated CascChnl cascchnl = 2;
+}
+
+message TvBasic {
+    string name = 1;
+    fixed32 id = 2;
+    bool kvm = 3;
+    fixed32 rate = 4;
+    fixed32 row = 5;
+    fixed32 col = 6;
+    fixed32 width = 7;
+    fixed32 height = 8;
+    fixed32 cellnum = 9;
+    fixed32 backid = 10;
+}
+
+message TvList {
+    repeated TvBasic tvbasic = 1;
+}
+
+message TvCell {
+    fixed32 id = 1;
+    fixed32 chnid = 2;
+    fixed32 startx = 3;
+    fixed32 starty = 4;
+    fixed32 width = 5;
+    fixed32 hight = 6;
+}
+
+message TvCellList {
+    repeated TvCell tvcell = 1;
+}
+
+message TvInfo {
+    TvBasic base = 1;
+    fixed32 package = 2;
+    repeated TvCell cellls = 3;
+}
+
+message TvBack {
+    fixed32 id = 1;
+    bool exist = 2;
+    fixed32 state = 3;
+    fixed32 tvid = 4;
+    string name = 5;
+    fixed32 startx = 6;
+    fixed32 starty = 7;
+    fixed32 width = 8;
+    fixed32 height = 9;
+}
+
+message TvBackList {
+    repeated TvBack tvback = 1;
+}
+
+message BackTrans {
+    fixed32 id = 1;
+    fixed32 tvid = 2;
+    fixed32 no = 3;
+    string url = 4;
+}
+
+message BackTransList {
+    repeated BackTrans backtrans = 1;
+}
+
+message BackState {
+    fixed32 state = 1;
+    TvBack back = 2;
+}
+
+message OSD {
+    fixed32 id = 1;
+    bool visible = 2;
+    bool adaption = 3;
+    fixed32 startx = 4;
+    fixed32 starty = 5;
+    fixed32 width = 6;
+    fixed32 height = 7;
+    string fontname = 8;
+    fixed32 fontstyle = 9;
+    fixed32 fontsize = 10;
+    fixed32 fontform = 11;
+    fixed32 direction = 12;
+    fixed32 fontclr = 13;
+    string context = 14;
+}
+
+message OSDList {
+    fixed32 id = 1;
+    repeated OSD osd = 2;
+}
+
+message OsdStatus {
+    fixed32 tvid = 1;
+    fixed32 id = 2;
+    fixed32 state = 3;
+    fixed32 exist = 4;
+}
+
+message OsdStatusList {
+    repeated OsdStatus osdstatus = 1;
+}
+
+message FileTrans {
+    string ip = 1;
+    fixed32 port = 2;
+    string username = 3;
+    string password = 4;
+    string path = 5;
+}
+
+message OsdFile {
+    fixed32 tvid = 1;
+    fixed32 id = 2;
+    fixed32 filesize = 3;
+    fixed32 checksum = 4;
+}
+
+message OSDCtrl {
+    fixed32 id = 1;
+    bool use = 2;
+}
+
+message TvState {
+    ValueU32 state = 1;
+    TvBasic base = 2;
+}
+
+message Login {
+    string user = 1;
+    string pass = 2;
+}
+
+message LoginAck {
+    fixed32 id = 1;
+    fixed32 count = 2;
+}
+
+message PlatSn {
+    string platsn = 1;
+    int32 type = 2;
+}
+
+message Kdmid {
+    string KDMID = 1; //监控平台上各类资源ID
+}
+
+message User {
+    fixed32 id = 1;
+    string name = 2;
+    string pass = 3;
+    fixed32 type = 4;
+    int32 online = 5;
+    int32 islock = 6;
+    int32 isuse = 7;
+    fixed32 validity = 8;
+}
+
+message UserRes {
+    int32 type = 1;
+    fixed32 id = 2;
+}
+
+message UserResList {
+    fixed32 userid = 1;
+    repeated UserRes res = 2;
+}
+
+message UserList {
+    repeated User user = 1;
+}
+
+message UserLockState {
+    fixed32 id = 1;
+    bool state = 2;
+}
+
+message UserState {
+    User user = 1;
+    ValueU32 state = 2;
+}
+
+message UserStateList {
+    repeated UserState userstate = 1;
+}
+
+message WinState {
+    Window window = 1;
+    fixed32 state = 2;
+}
+
+message Subwindow {
+    fixed32 id = 1;
+    fixed32 srcid = 2;
+    string error = 3;
+}
+
+message MergeWnd {
+    Tswid id = 1;
+    fixed32 style = 2;
+    repeated Subwindow subwindow = 3;
+}
+
+message MergeWnds {
+    repeated MergeWnd mergewnd = 1;
+}
+
+message Rect {
+    fixed32 x = 1;
+    fixed32 y = 2;
+    fixed32 w = 3;
+    fixed32 h = 4;
+}
+
+message Window {
+    fixed32 id = 1;
+    fixed32 sceneid = 2;
+    fixed32 tvid = 3;
+    fixed32 srcid = 4;
+    Rect layout = 5;
+    fixed32 style = 6;
+    bool audio = 7;
+    fixed32 layer = 8;
+    bool iscut = 9;
+    Rect cut = 10;
+}
+
+message Windows {
+    repeated Window window = 1;
+}
+
+message WndDesc {
+    Tswid id = 1;
+    string error = 2;
+}
+
+message Reorder {
+    fixed32 id = 1;
+    fixed32 sceneid = 2;
+    fixed32 tvid = 3;
+    fixed32 order = 4;
+}
+
+enum OPCODE {
+    OPTOP = 0;
+    OPBOTTOM = 1;
+    OPUP = 2;
+    OPDOWN = 3;
+    OPOPEN = 4;
+    OPCLOSE = 5;
+    OPCLEAN = 6;
+}
+
+enum PTZCODE {
+    CODENONE = 0;
+    ZOOMLARGER = 11;
+    ZOOMSMALL = 12;
+    FOCUSNEAR = 13;
+    FOCUSFAR = 14;
+    LIGHTLARGER = 15;
+    LIGHTSMALL = 16;
+    MOVEUP = 21;
+    MOVEDOWN = 22;
+    MOVELEFT = 23;
+    MOVERIGHT = 24;
+    MOVELUP = 25;
+    MOVERUP = 26;
+    MOVELDOWN = 27;
+    MOVERDOWN = 28;
+    MOVEAUTO = 29;
+    GOTOPRESET = 39;
+    SETPRESET = 40;
+}
+
+message Ptz {
+    fixed32 id = 1;
+    Tswid beid = 2;
+    fixed32 param = 3;
+    fixed32 code = 4;
+    fixed32 on = 5;
+}
+
+message RealPlay {
+    fixed32 id = 1;
+    string gbid = 2;
+    string url = 3;
+}
+
+message PcBdInfo {
+    fixed32 id = 1;
+    string name = 2;
+    fixed32 slot = 3;
+    fixed32 online = 4;
+    fixed32 power = 5;
+    fixed32 runtime = 6;
+}
+
+message PcBdInfoList {
+    repeated PcBdInfo pcinfo = 1;
+    fixed32 pcid = 2;
+}

@@ -1,0 +1,35 @@
+syntax = "proto3";
+
+package msp.cnt.pc;
+
+message PcInfo {
+    fixed32 id = 1;
+    string name = 2;
+    string ip = 3;
+    fixed32 port = 4;
+    fixed32 cnntmode = 5;
+}
+
+message PcInfoList {
+    repeated PcInfo pcinfo = 1;
+}
+
+message PcList {
+    repeated fixed32 id = 1;
+}
+
+message PcBdInfo
+{
+fixed32   id           = 1;
+string    name        = 2;
+fixed32   slot         = 3;
+fixed32   online       = 4;
+fixed32   power       = 5;
+fixed32   runtime      = 6;
+}
+
+message PcBdInfoList
+{
+repeated  PcBdInfo pcinfo    = 1;
+          fixed32  pcid      = 2;
+}

@@ -1,0 +1,160 @@
+syntax = "proto3";
+
+package msp.cnt.chn;
+import 'msp.cnt.proto';
+
+message QueryChn {
+    fixed32 id = 1;
+    string no = 2;
+    string alias = 3;
+    fixed32 type = 4;
+}
+
+message QueryChnList {
+    repeated QueryChn chn = 1;
+}
+
+message ChnBasic {
+    string name = 1;
+    fixed32 id = 2;
+    fixed32 chntype = 3;
+    fixed32 porttype = 4;
+    bool online = 5;
+    bool line = 6;
+    bool signal = 7;
+    string hid = 8;
+    fixed32 audiotype = 9;
+}
+
+message ChnInfo {
+    ChnBasic base = 1;
+    fixed32 resw = 2;
+    fixed32 resh = 3;
+    fixed32 streamnum = 4;
+    bool avsync = 5;
+    fixed32 aid = 6;
+    fixed32 anum = 7;
+    fixed32 astate = 8;
+    bool ause = 9;
+    fixed32 state=10;
+}
+
+message ChnInfoList {
+    repeated ChnInfo chn = 1;
+}
+
+message ChnGroup {
+    string name = 1;
+    fixed32 id = 2;
+    fixed32 nextid = 3;
+    fixed32 parentid = 4;
+}
+
+message ChnGroupState {
+    ChnGroup group = 1;
+    fixed32 state = 2;
+}
+
+message ChnGroupList {
+    repeated ChnGroup chngroup = 1;
+}
+
+message GroupMemList {
+    fixed32 id = 1;
+    fixed32 state = 2;
+    repeated GroupMem groupmen = 3;
+}
+
+message ChnNetEnalbe {
+    fixed32 id = 1;
+    bool enable = 2;
+}
+
+message ChnNetEnalbeList {
+    repeated ChnNetEnalbe chnnetnable = 1;
+}
+
+message ChnMode {
+    fixed32 id = 1;
+    fixed32 module = 2;
+    fixed32 hdmi = 3;
+    fixed32 line = 4;
+}
+
+message ChnEdid {
+    fixed32 id = 1;
+    bytes edid = 2;
+}
+
+message Edid {
+    fixed32 id = 1;
+    fixed32 width = 2;
+    fixed32 height = 3;
+    string module = 4;
+    bytes cfg = 5;
+    string desc = 6;
+}
+
+message EdidList {
+    repeated Edid edid = 1;
+}
+
+message UmtGroup {
+    string name = 1;
+    fixed32 umtid = 2;
+    string id = 3;
+    string parentid = 4;
+    string domain = 5;
+}
+
+message UmtGroupList {
+    repeated UmtGroup umtgroup = 1;
+}
+
+message UmtChn {
+    fixed32 umtid = 1;
+    fixed32 id = 2;
+    string name = 3;
+    string gbid = 4;
+    string parentid = 5;
+    bool online = 6;
+    string ip = 7;
+    string firm = 8;
+    string longitude = 9;
+    string latitude = 10;
+}
+
+message UmtChnList {
+    repeated UmtChn umtchn = 1;
+}
+
+message UmtChnState {
+    UmtChn dev = 1;
+    fixed32 state = 2;
+}
+
+message UmtChnStateList {
+    repeated UmtChnState umtchnstate = 1;
+}
+
+message ComCfg {
+    fixed32 proto = 1;
+    fixed32 type = 2;
+    fixed32 port = 3;
+    bool state = 4;
+    fixed32 databits = 5;
+    fixed32 stopbits = 6;
+    fixed32 parity = 7;
+    fixed32 baudrate = 8;
+    fixed32 id = 9;
+}
+
+message ComPtz {
+    fixed32 id = 1;
+    bool enable = 2;
+}
+
+message Property {
+    fixed32 id = 1;
+    fixed32 type = 2;
+}

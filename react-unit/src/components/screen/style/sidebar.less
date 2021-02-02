@@ -1,0 +1,69 @@
+@import './custom.less';
+
+.side_container {
+    width: 320px;
+    min-width: 320px;
+    height: 100%;
+    overflow: hidden;
+    position: static;
+    background-color: @base-alter;
+
+    .custom-btn();
+    .custom-input();
+    .custom-switch();
+    .custom-collapse();
+}
+
+.side_title_area {
+    height: @head-height;
+    font-size: @title-fontsize;
+    padding: 0px 10px;
+    line-height: @head-height;
+    border-bottom: 1px solid #F0F0F0;
+    background-color: @base-alter;
+}
+
+.side_content_area {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    height: calc(100% - 48px);
+
+    &::-webkit-scrollbar{
+        width: 6px;
+        height: 4px;
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-track{
+        background: transparent;
+        border-radius: 2px;
+    }
+    &::-webkit-scrollbar-thumb{
+        background: #bfbfbf;
+        border-radius: 4px;
+    }
+    &::-webkit-scrollbar-thumb:hover{
+        background: darken(#bfbfbf, 20%);
+    }
+    &::-webkit-scrollbar-corner{
+        background: transparent;
+    }
+    
+    .site-collapse-custom-collapse .site-collapse-custom-panel {
+        background: white;
+        border: 0px;
+        overflow: hidden;
+        border-radius: 2px;
+        border-bottom: 1px solid #F0F0F0;
+        
+        .ant-collapse-header {
+            color: #999999;
+        }
+    }
+}
+
+.row_layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

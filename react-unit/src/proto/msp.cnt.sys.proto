@@ -1,0 +1,155 @@
+syntax = "proto3";
+
+package msp.cnt.sys;
+
+message FilterForm {
+    fixed32 value = 1;
+    repeated string ip = 2;
+}
+
+message Time {
+    string zone = 1;
+    fixed32 year = 2;
+    fixed32 month = 3;
+    fixed32 day = 4;
+    fixed32 hour = 5;
+    fixed32 minute = 6;
+    fixed32 second = 7;
+}
+
+message AccessCode {
+    string code = 1;
+    bool opt = 2;
+}
+
+message SysLicence {
+    string host = 1;
+    string no = 2;
+    string version = 3;
+    fixed32 type = 4;
+    fixed32 state = 5;
+    sint32 enccap = 6;
+    fixed32 module = 7;
+    repeated fixed32 expdata = 8;
+}
+
+message FileTrans {
+    string ip = 1;
+    fixed32 port = 2;
+    string username = 3;
+    string password = 4;
+    string path = 5;
+}
+
+message LicenceState {
+    fixed32 module = 1;
+    bool value = 2;
+    fixed32 effecdue = 3;
+}
+
+message LicenceStateList {
+    repeated LicenceState licence = 1;
+}
+
+message FileInfo {
+    fixed32 size = 1;
+    fixed32 checksum = 2;
+    string name = 3;
+    fixed32 opt = 4;
+}
+
+enum ELICENCEST {
+    ELICNONE = 0;
+    ELICNOT = 20093;
+    ELICEXP = 20094;
+    ELICTYPEERR = 20095;
+    ELICEHOSTERR = 20096;
+    ELICEDATAERR = 20097;
+}
+
+enum ELICENCEBIT {
+    ELICBITKVM = 0;
+    ELICBITVIDEO = 1;
+    ELICBITAUDIO = 2;
+    ELICBITREST = 3;
+    ELICBITZK = 4;
+    ELICBITVS = 5;
+}
+
+message Resource {
+    fixed32 box = 1;
+    fixed32 slot = 2;
+    fixed32 port = 3;
+    fixed32 isuse = 4;
+}
+
+message Recoder {
+    string name = 1;
+    fixed32 id = 2;
+    fixed32 tvid = 3;
+    fixed32 mode = 4;
+    fixed32 states = 5;
+    repeated Resource resource = 6;
+}
+
+message Recoders {
+    repeated Recoder recoder = 1;
+}
+
+message RecoderBoard {
+    string name = 1;
+    fixed32 box = 2;
+    fixed32 slot = 3;
+    fixed32 portnum = 4;
+    fixed32 state = 5;
+}
+
+message RecoderBoards {
+    repeated RecoderBoard recoderboard = 1;
+}
+
+message PlatInfo
+{
+	string mmsp = 1;
+	string msp  = 2;
+	string name = 3;
+	fixed32 mode = 4;
+	fixed32 box = 5;
+	fixed32 state = 6;
+	fixed32 enable = 7;
+	string ip = 8;
+	string domain = 9;
+	fixed32 port = 10;
+	string username = 11;
+	string password = 12;
+}
+
+message PlatInfos {
+    repeated PlatInfo platinfo = 1;
+}
+
+message CascChnl {
+    fixed32 box = 1;
+    fixed32 slot = 2;
+    fixed32 port = 3;
+    fixed32 type = 4;
+    fixed32 cbox = 5;
+    fixed32 cslot = 6;
+    fixed32 cport = 7;
+    string cip = 8;
+}
+
+message CascChnls {
+    repeated CascChnl cascchnl = 1;
+}
+
+message CascPipe {
+    string sn = 1;
+    string url = 2;
+    string param = 3;
+}
+
+message CashChnlPrm {
+    fixed32 opt = 1;
+    repeated CascChnl cascchnl = 2;
+}

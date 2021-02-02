@@ -1,0 +1,38 @@
+.ant-collapse-content-box {
+  background-color: @component-background;
+
+  .ant-collapse-content-box {
+    padding-left: 40px;
+  }
+}
+
+.ant-collapse-borderless > .ant-collapse-item {
+  border-bottom: none;
+}
+
+.ant-collapse > .ant-collapse-item {
+  border-bottom: none;
+}
+
+* {
+  &::-webkit-scrollbar{
+    width: 6px;
+    height: 4px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-track{
+      background: transparent;
+      border-radius: 2px;
+  }
+  &::-webkit-scrollbar-thumb{
+      background: #bfbfbf;
+      border-radius: 4px;
+  }
+  &::-webkit-scrollbar-thumb:hover{
+      background: darken(#bfbfbf, 20%);
+  }
+  &::-webkit-scrollbar-corner{
+      background: transparent;
+  }
+}

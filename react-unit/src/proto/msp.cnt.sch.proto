@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+import 'msp.cnt.proto';
+package msp.cnt.sch;
+
+message Scheme {
+    string name = 1;
+    fixed32 id = 2;
+    fixed32 tvid = 3;
+    fixed32 wndnum = 4;
+}
+
+message Schemes {
+    bool isend = 1;
+    repeated Scheme scheme = 2;
+}
+
+message Tswid {
+    fixed32 id = 1;
+    fixed32 sceneid = 2;
+    fixed32 tvid = 3;
+}
+
+message PollPrm {
+    fixed32 keep = 1;
+    bool issame = 2;
+    fixed32 interval = 3;
+    Tswid beid = 4;
+}
+
+message Poll {
+    repeated PollMem pollmem = 1;
+    PollPrm param = 2;
+    Tswid beid = 3;
+}
+
+message PollMem {
+    fixed32 interval = 1;
+    fixed32 id = 2;
+    string name = 3;
+}
+
+message PollMems {
+    repeated PollMem pollmem = 1;
+}
+
+message SchemeState {
+    ValueU32 state = 1;
+    Scheme scheme = 2;
+}
+
+message PollState {
+    fixed32 state = 1;
+    fixed32 id = 2;
+    Tswid beid = 3;
+}
+
+message PollStates {
+    repeated PollState pollstate = 1;
+}

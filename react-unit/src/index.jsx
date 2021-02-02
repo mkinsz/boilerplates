@@ -1,15 +1,35 @@
+// import './utils/wdyr';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { store } from './utils';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Modal, ConfigProvider } from 'antd'
+import zhCN from 'antd/es/locale/zh_CN';
+import { QuestionCircleOutlined } from '@ant-design/icons';
 
-import registerServiceWorker from './registerServiceWorker';
+const root = document.createElement('div');
+root.style.height = '100%';
+document.body.appendChild(root)
 
-//打包时，用的BrowserRouter并加上了basename，因为放在服务器的二级目录下
-ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root'));
-registerServiceWorker();
+const getConfirmation = (message, callback) => {
+	Modal.confirm({
+		centered: true,
+		title: message,
+		icon: <QuestionCircleOutlined />,
+		onOk: () => callback(true),
+		onCancel: () => callback(false)
+	});
+};
+
+render(
+	<Provider store={store}>
+		<Router getUserConfirmation={getConfirmation}>
+			<ConfigProvider locale={zhCN}>
+				<App />
+			</ConfigProvider>
+		</Router>
+	</Provider>,
+	root
+);

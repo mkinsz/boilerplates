@@ -10,15 +10,30 @@
     "test": "node scripts/test"
   },
   "dependencies": {
+    "antd": "^4.10.0",
     "babel-plugin-named-asset-import": "^0.3.7",
     "dotenv": "^8.2.0",
     "dotenv-expand": "^5.1.0",
+    "echarts": "^5.0.0",
+    "echarts-for-react": "^2.0.16",
+    "file-saver": "^2.0.5",
+    "google-protobuf": "^3.14.0",
+    "md5": "^2.3.0",
     "react": "^17.0.1",
     "react-dev-utils": "^11.0.1",
     "react-dom": "^17.0.1",
+    "react-jss": "^10.5.0",
+    "react-redux": "^7.2.2",
     "react-refresh": "^0.9.0",
     "react-router-dom": "^5.2.0",
-    "resolve": "^1.19.0"
+    "react-splitter-layout": "^4.0.0",
+    "redux": "^4.0.5",
+    "redux-logger": "^3.0.6",
+    "redux-thunk": "^2.3.0",
+    "reqwest": "^2.0.5",
+    "resolve": "^1.19.0",
+    "screenfull": "^5.1.0",
+    "xlsx": "^0.16.9"
   },
   "browserslist": {
     "production": [
@@ -35,12 +50,15 @@
   "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-decorators": "^7.12.12",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-react": "^7.12.10",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "@svgr/webpack": "5.4.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.6.3",
     "babel-loader": "^8.2.2",
+    "babel-plugin-import": "^1.13.3",
     "babel-preset-react-app": "^10.0.0",
     "bfj": "^7.0.2",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",

@@ -138,15 +138,6 @@ module.exports = function (webpackEnv) {
           sourceMap: isEnvProduction ? shouldUseSourceMap : isEnvDevelopment,
         },
       },
-      {
-        loader: require.resolve('less-loader'),
-        options: {
-          lessOptions: {
-            modifyVars: {},
-            javascriptEnabled: true
-          }
-        }
-      }
     ].filter(Boolean);
     if (preProcessor) {
       loaders.push(
@@ -159,8 +150,14 @@ module.exports = function (webpackEnv) {
         },
         {
           loader: require.resolve(preProcessor),
-          options: {
+          options: preProcessor !== 'less-loader' ? {
             sourceMap: true,
+          } : {
+            sourceMap: true,
+            lessOptions: {
+              modifyVars: {},
+              javascriptEnabled: true,
+            }
           },
         }
       );
@@ -344,6 +341,7 @@ module.exports = function (webpackEnv) {
           'scheduler/tracing': 'scheduler/tracing-profiling',
         }),
         ...(modules.webpackAliases || {}),
+        '@': paths.appSrc,
       },
       plugins: [
         // Adds support for installing with Plug'n'Play, leading to faster installs and adding
@@ -580,10 +578,25 @@ module.exports = function (webpackEnv) {
               exclude: lessModuleRegex,
               use: getStyleLoaders(
                 {
-                  importLoaders: 4,
+                  importLoaders: 2,
                   sourceMap: isEnvProduction
                     ? shouldUseSourceMap
                     : isEnvDevelopment,
+                },
+                'less-loader'
+              ),
+              sideEffects: true,
+            },
+            {
+              test: lessModuleRegex,
+              use: getStyleLoaders(
+                {
+                  importLoaders: 2,
+                  sourceMap: isEnvProduction
+                    ? shouldUseSourceMap
+                    : isEnvDevelopment,
+                    modules: true,
+                    getLocalIdent: getCSSModuleLocalIdent
                 },
                 'less-loader'
               ),

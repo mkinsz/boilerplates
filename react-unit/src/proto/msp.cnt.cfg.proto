@@ -1,0 +1,161 @@
+syntax="proto3";
+package msp.cnt.cfg;
+import 'msp.cnt.proto';
+
+message NetCfg {
+    fixed32 id = 1;
+    string name = 2;
+    bool use = 3;
+    bool dhcp = 4;
+    string ip = 5;
+    fixed32 type = 6;
+    string mask = 7;
+}
+
+message NetCfgList {
+    repeated NetCfg net = 1;
+}
+
+message Lancfg {
+    string ipin = 1;
+    string ipout = 2;
+}
+
+message Umt {
+    fixed32 id = 1;
+    string name = 2;
+    fixed32 type = 3;
+    string ip = 4;
+    fixed32 port = 5;
+    string user = 6;
+    string pass = 7;
+    bool online = 8;
+    string rtsp = 9;
+    fixed32 ipcmedia = 10;
+    fixed32 mtmedia = 11;
+    fixed32 conf = 12;
+    fixed32 device = 13;
+}
+
+message UmtList {
+    repeated Umt umt = 1;
+}
+
+message UmtState {
+    fixed32 id = 1; //UMT ID或点位ID
+    fixed32 state = 2; //设备状态，参见EMUMTOPT_TYPE
+}
+
+message UmtDec {
+    fixed32 id = 1;
+    fixed32 box = 2; //机箱号
+    fixed32 slot = 3; //槽位号
+    fixed32 mode = 4; //拉流模式
+}
+
+message UmtDecList {
+    repeated UmtDec umtdec = 1;
+}
+
+message UmtStateList {
+    repeated UmtState state = 1;
+}
+
+message DecMode {
+    fixed32 box = 1;
+    fixed32 slot = 2;
+    fixed32 module = 3;
+}
+
+message DecModeList {
+    repeated DecMode mode = 1;
+}
+
+message RdBox {
+    string ip = 1;
+    fixed32 port = 2;
+    bool main = 3;
+}
+
+message RdBoxList {
+    repeated RdBox rdbox = 1;
+}
+
+message RdPort {
+    fixed32 id = 1;
+    fixed32 lbox = 2;
+    fixed32 type = 3;
+    fixed32 lslot = 4;
+    fixed32 lport = 5;
+    fixed32 lstate = 6;
+    fixed32 fslot = 7;
+    fixed32 fport = 8;
+    fixed32 fstate = 9;
+    fixed32 module = 10;
+    bool fit = 11;
+    fixed32 phybox = 12;
+    fixed32 phytype = 13;
+    fixed32 physlot = 14;
+    fixed32 phyport = 15;
+    fixed32 phystate = 16;
+}
+
+message RdPortList {
+    repeated RdPort rdport = 1;
+}
+
+message RdOutput {
+    fixed32 sid = 1;
+    fixed32 did = 2;
+    bool on = 3;
+    string result = 4;
+}
+
+message RdOutputList {
+    repeated RdOutput rdout = 1;
+}
+
+message BoxExt {
+    string inid = 1;
+    string outid = 2;
+}
+
+message BoxExtList {
+    repeated BoxExt box = 1;
+    string type = 2;
+}
+
+message RdPortUpdate {
+    string type = 1;
+    RdPort context = 2;
+}
+
+
+
+message PrePlan
+{
+          fixed32    id    = 1;
+          string      name = 2;
+          fixed32    enable = 3;
+repeated  GroupMem chn   = 4;
+       fixed32    action  = 5;
+}
+
+message PrePlans
+{
+repeated PrePlan plan = 1;
+}
+
+
+
+message GroupMems
+{
+repeated GroupMem chn = 1;
+}
+
+
+message Ids
+{
+    repeated  fixed32 id=1; 
+}
+

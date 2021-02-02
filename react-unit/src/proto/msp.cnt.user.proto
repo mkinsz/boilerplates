@@ -1,0 +1,69 @@
+syntax = "proto3";
+
+import 'msp.cnt.proto';
+package msp.cnt.user;
+
+message Login {
+    string user = 1;
+    string pass = 2;
+}
+
+message LoginAck {
+    fixed32 id = 1;
+    fixed32 count = 2;
+    fixed32 type = 3;
+}
+
+message PlatSn {
+    string platsn = 1;
+    int32 type = 2;
+}
+
+message Kdmid {
+    string KDMID = 1; //监控平台上各类资源ID
+}
+
+message User {
+    fixed32 id = 1;
+    string name = 2;
+    string pass = 3;
+    fixed32 type = 4;
+    int32 online = 5;
+    int32 islock = 6;
+    int32 isuse = 7;
+    fixed32 validity = 8;
+}
+
+message UserRes {
+    int32 type = 1;
+    fixed32 id = 2;
+}
+
+message UserResList {
+    fixed32 userid = 1;
+    repeated UserRes res = 2;
+}
+
+message UserList {
+    repeated User user = 1;
+}
+
+message UserLockState {
+    fixed32 id = 1;
+    bool state = 2;
+}
+
+message UserState {
+    User user = 1;
+    ValueU32 state = 2;
+}
+
+message UserStateList {
+    repeated UserState userstate = 1;
+}
+
+message UserPassword {
+	fixed32 id = 1;
+	string oldpwd = 2;
+	string newpwd = 3;
+}

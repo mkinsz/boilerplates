@@ -1,0 +1,127 @@
+syntax = "proto3";
+
+package msp.cnt.dev;
+
+message DevBasic {
+    string name = 1;
+    fixed32 box = 2;
+    fixed32 slot = 3;
+    fixed32 hid = 4;
+    fixed32 pid = 5;
+    string mac = 6;
+    string sn = 7;
+    string model = 8;
+    string hwver = 9;
+    string softver = 10;
+    fixed32 fwnum = 11;
+    fixed32 port = 12;
+}
+
+message DevInfo {
+    string sn = 1;
+    string ip = 2;
+    fixed32 type = 3;
+    bool online = 4;
+    fixed32 status = 5;
+    fixed32 portcap = 6;
+    DevBasic base = 7;
+}
+
+message DevList {
+    repeated DevInfo dev = 1;
+}
+
+message SearchCfg {
+    fixed32 timeout = 1;
+}
+
+message SearchDev {
+    string sn = 1;
+    string name = 2;
+    string model = 3;
+    fixed32 slot = 4;
+    string mac = 5;
+    string ip = 6;
+    string mask = 7;
+    string gw = 8;
+    fixed32 runtime = 9;
+    string regip = 10;
+    fixed32 regport = 11;
+    string softver = 12;
+}
+
+message SearchDevList {
+    repeated SearchDev dev = 1;
+}
+
+message RegDev {
+    string mac = 1;
+    string ip = 2;
+    string regip = 3;
+}
+
+message RegDevList {
+    repeated RegDev dev = 1;
+}
+
+message FwInfo {
+    fixed32 no = 1;
+    string name = 2;
+    string softver = 3;
+}
+
+message FwList {
+    string sn = 1;
+    repeated FwInfo fw = 2;
+}
+
+message BatchCfg {
+    string sn = 1;
+    string ip = 2;
+    fixed32 type = 3;
+}
+
+message BatchCfgList {
+    fixed32 meth = 1;
+    repeated BatchCfg batch = 2;
+}
+
+message BatchInfo {
+    fixed32 meth = 1;
+    string body = 2;
+}
+
+message BatchProg {
+    string sn = 1;
+    fixed32 meth = 2;
+    fixed32 progress = 3;
+}
+
+message PackageInfo {
+    string name = 1;
+    string path = 2;
+    string detail = 3;
+}
+
+enum EDEVTYPE {
+    EDEVALL = 0;
+    EDEVASVR = 2;
+    EDEVIN = 3;
+    EDEVOUT = 4;
+    EDEVBOX = 6;
+    EDEVTX = 7;
+    EDEVRX = 8;
+    EDEVDEC = 9;
+    EDEVVSVR = 15;
+    EDEVNMC = 16;
+    EDEV1837 = 17;
+    EDEVMPU = 18;
+    EDEVDANTE = 19;
+}
+
+enum EMMETH {
+    EMREBOOT = 0; //重启
+    EMRESTORE = 1; //恢复出厂
+    EMSETBOX = 2; //设置机箱号
+    EMUPGRADE = 3; //升级
+}
