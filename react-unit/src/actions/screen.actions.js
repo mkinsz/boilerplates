@@ -10,7 +10,7 @@ export const SCREEN = {
     getWallCells:(id)=>store.dispatch({type:'/msp/v2/tv/detail/query',payload:{serial,id}}),
     getChannels:(type)=>store.dispatch({type:'/msp/v2/chn/query',payload:{serial,type,forced:true}}),
 
-    addWall:(wallInfo)=>store.dispatch({type:'/msp/v2/tv/config',payload:{serial,wallInfo}}),
+    addWall:(wallInfo,tip)=>store.dispatch({type:'/msp/v2/tv/config',payload:{serial,wallInfo,tip}}),
 
     delWall:(id)=>store.dispatch({type:'/msp/v2/tv/delete',payload:{serial,id}}),
 

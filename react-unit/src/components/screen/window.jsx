@@ -102,6 +102,8 @@ const Window = React.forwardRef((props, ref) => {
         return { xs, ys, rect }
     }, [props.layout, size])
 
+    const edge = useMemo(() => Math.round(50 / size.r), [size])
+
     useLayoutEffect(() => {
         const ndata = {}
         props.windows.map(m => {
@@ -160,6 +162,7 @@ const Window = React.forwardRef((props, ref) => {
 
         m.layout = { l, t, w, h }
         const { iscut, cut } = m;
+        console.log('------->', tvid, sceneid, m.srcid, { x: l, y: t, w, h }, id, iscut, cut)
         actions.windows_open_config(tvid, sceneid, m.srcid, { x: l, y: t, w, h }, id, iscut, cut)
         setData(origin)
     }
@@ -300,12 +303,15 @@ const Window = React.forwardRef((props, ref) => {
             case RESIZE.b:
             case RESIZE.bl:
             case RESIZE.br:
-                br.h += diffY
+                br.h += diffY;
                 break;
             case RESIZE.m:
                 br.t += diffY;
                 break;
         }
+        
+        if(br.w < edge) br.w = edge;
+        if(br.h < edge) br.h = edge;
         br.r = br.l + br.w;
         br.b = br.t + br.h;
 

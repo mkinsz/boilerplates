@@ -8,7 +8,7 @@ export const SAFE = {
 
     getFilterType:()=>store.dispatch({ type: '/msp/v2/safe/filter/query', payload: {}}),
     getFilterForm:(type)=>store.dispatch({ type: '/msp/v2/safe/filterform/query', payload: {type}}),
-    setFilterForm:(type,ips)=>store.dispatch({ type: '/msp/v2/safe/filterform/config', payload: {type,ips}}),
+    setFilterForm:(type,ips,tip)=>store.dispatch({ type: '/msp/v2/safe/filterform/config', payload: {type,ips,tip}}),
 
     dispatch: (evt, payload) => store.dispatch({type: evt, payload}),
 }

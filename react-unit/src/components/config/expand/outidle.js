@@ -57,6 +57,8 @@ const OutFormModal = props => {
   const vouts = useSelector(({ mspsDev }) => mspsDev.vouts)
   const outputs = useSelector(({ mspsCfg: { ext } }) => ext.outputs) || []
 
+  const isCpt = useMemo(() => (record.portcap == 4) && (-1 != record.model.search("CPT")), [record])
+
   useEffect(() => {
     setOuts(Object.values(vouts).filter(m =>
       (record.box == m.id >> 24 >>> 0) && (record.slot == m.id << 8 >>> 24)
@@ -89,18 +91,17 @@ const OutFormModal = props => {
   const cards = useMemo(() => {
     if (!visible) return [];
 
+    const offset = isCpt ? 2 : 4;
     const coms = []
-    for (let i = 0; i < outs.length; i += 4) {
+    for (let i = 0; i < outs.length; i += offset) {
       coms.push(
         <Col key={i} span={12}>
-          <CardOut index={i} data={outs.slice(i, i + 4)}
+          <CardOut index={i} data={outs.slice(i, i + offset)}
             onCheck={handleCheck} onSelect={handleSelect} />
         </Col>)
     }
     return coms
-  }, [outs])
-
-  
+  }, [outs, isCpt])
 
   const handleOk = () => {
     const payload = outs.map(m => ({ sid: m.sid, did: m.did, on: m.on }))
@@ -158,9 +159,9 @@ const OutIdle = props => {
   }
 
   const handleOp = record => {
-    const { box, slot } = record;
+    const { box, slot, model, portcap } = record;
     dispatch({ type: '/msp/v2/devex/output/redundancy/query', payload: { box, slot } })
-    setRecord({ box, slot })
+    setRecord({ box, slot, model, portcap })
     setVisible(true)
   }
 

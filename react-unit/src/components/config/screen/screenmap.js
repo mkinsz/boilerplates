@@ -342,7 +342,7 @@ const PicMap = props => {
         Modal.confirm({
             title: '删除',
             icon: <ExclamationCircleOutlined />,
-            content: '是否删除大屏?',
+            content: '是否删除底图?',
             okText: '确认',
             cancelText: '取消',
             onOk:delfun

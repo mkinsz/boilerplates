@@ -72,6 +72,7 @@ export const mspsAuth = (state = initialState, action) => {
 		case '/msp/v2/authen/notify': {
 			const body = action.body.unpack(pb.Notify.deserializeBinary, 'msp.cnt.Notify')
 			const status = body.getState()
+			console.log('=> auth notify', status)
 			switch (status) {
 				case 0: break;
 				case 1:

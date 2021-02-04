@@ -438,8 +438,14 @@ export default (state = init_state, action) => {
         case '/msp/v2/windows/open/config': {
             const { payload } = action;
             const tvwinds = state.windows[payload.tvid]
-            if (!tvwinds) return state;
-            if (tvwinds.schid != payload.sceneid) return state;
+            if (!tvwinds) {
+                console.log('=>1. no tvwinds...', payload, state.windows)
+                return state;
+            }
+            if (tvwinds.schid != payload.sceneid) {
+                console.log('=>2. schid not equal...', payload, tvwinds)
+                return state;
+            }
 
             const mesg = new pb.Window()
             mesg.setTvid(payload.tvid)

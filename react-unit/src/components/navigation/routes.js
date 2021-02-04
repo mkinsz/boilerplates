@@ -14,7 +14,6 @@ export default {
     { title: '图控中心', icon: 'trophy', key: '/center' },
     { title: '运维', icon: 'build', key: '/maintain'},
   ],
-  nolicmenus: [
-    { title: '配置', icon: 'setting', key: '/config' },
-  ]
+  cfg_menu: { title: '配置', icon: 'setting', key: '/config' },
+  tv_menu: { title: '大屏调度', icon: 'global', key: '/screen' },
 };

@@ -53,6 +53,11 @@ const LoginForm = props => {
   }, [])
 
   useEffect(() => {
+    const release = async () => await ws.release();
+    if (location.pathname == '/login') release();
+  }, [location])
+
+  useEffect(() => {
     if (!session.isAuth()) return;
     const path = (location.state && location.state.from.pathname) || '/';
     history.push({ pathname: path });

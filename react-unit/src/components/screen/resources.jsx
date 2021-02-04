@@ -61,11 +61,17 @@ export default props => {
 
     const favorData = useMemo(() => {
         const data = { title: '收藏夹', key: '0-0', children: [] }
-        data.children = Object.values(favors).map(m => ({
-            key: uuidv4(), title: m.name, ...m, isLeaf: true, favor: true
-        }))
+        data.children = Object.values(favors).map(m => {
+            const rvin = {
+                key: uuidv4(), title: m.name,
+                isLeaf: true, favor: true, ...m
+            }
+            const tvin = vins[m.id]
+            tvin && (rvin.online = tvin.online);
+            return rvin;
+        })
         return data
-    }, [favors])
+    }, [favors, vins])
 
     const groupData = useMemo(() => {
         const data = { title: '自定义分组', key: '0-1', id: -1 >>> 0, children: [] }
@@ -158,7 +164,7 @@ export default props => {
         }}>
             <div>{node.title}</div>
             <div onClick={handleFavor}>{Boolean(true) === node.favor ?
-                <StarFilled style={{color:  "#FCC63F"}} /> :
+                <StarFilled style={{ color: "#FCC63F" }} /> :
                 <StarTwoTone twoToneColor="#FCC63F" />}</div>
         </div>
     }

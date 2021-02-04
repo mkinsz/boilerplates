@@ -197,6 +197,7 @@ export const ScreenSet = props => {
     if (Object.keys(props.channels).length > 0) {
 
       const chns = Object.values(props.channels).filter(m => { return m.signal == 0 && !usedChn.current.includes(m.id) })
+      console.log("flush chns", props.channels)
       console.log("flush chns", usedChn.current)
       console.log("flush chns", chns)
       setChns(chns)
@@ -393,9 +394,11 @@ export const ScreenSet = props => {
       message.error(err)
       return
     }
-
+    const tip={
+      success:()=>message.success('保存成功')
+    }
     props.walls.set(curWall.id, curWall)
-    SCREEN.addWall({ wall: curWall, cells: curCells })
+    SCREEN.addWall({ wall: curWall, cells: curCells },tip)
     console.log('save walls', curWall);
     console.log('save walls', curCells);
     usedChn.current = []
@@ -417,6 +420,7 @@ export const ScreenSet = props => {
       backid: 0
     })
     setCurCells([])
+    setCurcell(-1)
   }
 
   const getChnName = (chnID) => {
@@ -860,7 +864,7 @@ const ScreenWidgetRight = props => {
       let width = props.wallCells[curid].width;
       let hight = props.wallCells[curid].hight;
       setRect({ startx, starty, width, hight })
-    }
+    }else setRect({ startx: 0, starty: 0, width: 0, hight: 0 })
   }, [curid])
 
   const onWchange = (w) => {

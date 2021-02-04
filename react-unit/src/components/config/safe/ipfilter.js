@@ -141,9 +141,12 @@ const EditableTable = props => {
   ];
 
   React.useEffect(() => {
+    console.log('handleSave',props.data)
+
     if (!props.data) return;
     console.log(props.data)
     setData(props.data.map((m, i) => ({ key: (i).toString(), index: i + 1, IP: m })))
+    console.log('handleSave',props.data)
   }, [props.data])
 
   const handleDelete = record => {
@@ -151,6 +154,7 @@ const EditableTable = props => {
   };
 
   const handleSave = row => {
+    console.log('handleSave')
     const newData = [...data];
     const index = newData.findIndex(item => row.key === item.key);
     const item = newData[index];
@@ -283,8 +287,10 @@ const IpFilter = props => {
   }
 
   const handleSave = () => {
-    SAFE.setFilterForm(filterType, fileterData[filterType])
-    return message.success('保存成功')
+    const tip = {
+      success:()=>message.success('保存成功')
+    }
+    SAFE.setFilterForm(filterType, fileterData[filterType],tip)
   }
 
 
@@ -323,7 +329,7 @@ const IpFilter = props => {
       let iparr = fileterData[filterType]
       iparr.splice(index, 1, _new)
       console.log('iparr:', iparr)
-      setFilterData({ ...fileterData, [filterType]: iparr })
+      setFilterData({ ...fileterData, [filterType]: [...iparr] })
     }
   }
 

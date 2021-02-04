@@ -669,7 +669,7 @@ export const ScreenOsd = props => {
                                                     <div style={{ width: '100%', height: '50%', display: 'inline-flex' }}>
                                                         <Form.Item label='字号' name='fontsize' >
 
-                                                            <Input ref={fontsize} disabled={!buse && curOsd.adaption} type='text' onInput={(e) => { e.target.value = e.target.value.replace(/[^\-?\d.]/g, '') }} />
+                                                            <Input ref={fontsize} disabled={buse && curOsd.adaption} type='text' onInput={(e) => { e.target.value = e.target.value.replace(/[^\-?\d.]/g, '') }} />
 
                                                         </Form.Item>
                                                         <Form.Item wrapperCol={{ offset: 0, span: 24 }} name="adaption" valuePropName="checked">

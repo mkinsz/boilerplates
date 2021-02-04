@@ -426,10 +426,10 @@ export default (state = initState, action) => {
             const body = new proto.google.protobuf.Any()
             body.pack(mesg.serializeBinary(), 'msp.cnt.kvm.KvmGroupInfo')
             send({ evt: action.type, body });
-
             const grp = { ...state.group }
+
             group.mems = kvmids
-            delete grp.group[group.id]
+            delete grp[group.id]
             grp[group.id] = _.cloneDeep(group)
             return { ...state, group: grp };
         }

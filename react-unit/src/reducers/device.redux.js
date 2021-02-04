@@ -134,6 +134,12 @@ function chn_closure(context) {
         chns = {}
         finished = false
     }
+    inner.modify = (id, property, value) => {
+        const chn = chns[id]
+        if(chn) {
+            chn[property] = value;
+        }
+    }
     inner.alter = (chnlist) => {
         chnlist.map(m => {
             const inf = m.toObject();
@@ -194,11 +200,11 @@ export const mspsDev = (state = initialState, action) => {
             mesg.setSn(payload.sn)
             mesg.setId(payload.id)
             mesg.setSubid(payload.subid)
-            mesg.setOffset(payload.offset || 0)
+            mesg.setOffset(0)
             mesg.setSize(QUERY_SIZE)
             const body = new proto.google.protobuf.Any()
             body.pack(mesg.serializeBinary(), 'msp.cnt.Query')
-            send({ evt: action.type, body, serial: payload.id })
+            send({ evt: action.type, body, serial: payload.id, context: 0 })
             return state;
         }
         case '/msp/v2/eqp/query/ack': {
@@ -214,11 +220,11 @@ export const mspsDev = (state = initialState, action) => {
 
                 const tdevs = !action.serial ? Object.values(eqps) :
                     Object.values(eqps).filter(m => m.type == action.serial)
-                mesg.setOffset(tdevs.length)
+                mesg.setOffset(action.context + QUERY_SIZE)
 
                 const body = new proto.google.protobuf.Any()
                 body.pack(mesg.serializeBinary(), 'msp.cnt.Query')
-                send({ evt: '/msp/v2/eqp/query', body, serial: action.serial })
+                send({ evt: '/msp/v2/eqp/query', body, serial: action.serial, context: action.context + QUERY_SIZE })
             }
 
             return { ...state, eqps };
@@ -233,6 +239,7 @@ export const mspsDev = (state = initialState, action) => {
             return { ...state, mpu };
         }
         case '/msp/v2/chn/change': {
+            const {payload} = action;
             let chns;
             switch (payload.type) {
                 case CHNTYPE.AIN: chns = ains; break;
@@ -241,8 +248,20 @@ export const mspsDev = (state = initialState, action) => {
                 case CHNTYPE.VOUT: chns = vouts; break;
                 default: return state;
             }
+            const {id, property, value } = payload;
+            chns.modify(id, property, value);
+            
+            const chnnls = chns() || {};
 
-            return state;
+            const nstate = { ...state }
+            switch (action.context) {
+                case CHNTYPE.AIN: nstate.ains = { ...chnnls }; break;
+                case CHNTYPE.VIN: nstate.vins = { ...chnnls }; break;
+                case CHNTYPE.AOUT: nstate.aouts = { ...chnnls }; break;
+                case CHNTYPE.VOUT: nstate.vouts = { ...chnnls }; break;
+            }
+
+            return nstate;
         }
         case '/msp/v2/chn/query': {
             const { payload } = action;

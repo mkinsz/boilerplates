@@ -418,7 +418,7 @@ export default (state = initState, action) => {
                 state.tmppreset.id = id;
                 preset.push({ ...state.tmppreset })
                 const details = {}
-                state.tmppreset.chns.map(m => details[m.id] = m);
+                // state.tmppreset.chns.map(m => details[m.id] = m);
                 delete state.tmppreset;
                 return { ...state, preset, details }
             }

@@ -10,7 +10,10 @@ const initState = {
     auth: {},
     mass: {},
     access: {},
-    exps: []
+    exps: [],
+    licence: {
+
+    }
 }
 
 const LICENCEBIT = {
@@ -30,10 +33,8 @@ export default (state = initState, action) => {
         }
         case '/msp/v2/sys/query/ack': {
             const mesg = action.body.unpack(pb.DevBasic.deserializeBinary, 'msp.cnt.dev.DevBasic')
-            console.log(action.context)
-            const nstate = _.cloneDeep(state)
-            nstate.mpu = mesg.toObject()
-            return nstate;
+            const mpu = mesg.toObject()
+            return { ...state, mpu };
         }
         case '/msp/v2/sys/config': {
             const { payload } = action;
@@ -186,32 +187,34 @@ export default (state = initState, action) => {
             return state;
         }
         case '/msp/v2/sys/licence/detail/query': {
-            const { payload } = action;
             const mesg = new pb.Query()
-            mesg.setSubid(payload.id)
             const body = new proto.google.protobuf.Any()
             body.pack(mesg.serializeBinary(), 'msp.cnt.Query')
             send({ evt: action.type, body });
             return state;
         }
         case '/msp/v2/sys/licence/detail/query/ack': {
-            const mesg = action.body.unpack(pb.LicenceState.deserializeBinary, 'msp.cnt.sys.LicenceState')
+            const mesg = action.body.unpack(pb.LicenceStateList.deserializeBinary, 'msp.cnt.sys.LicenceStateList')
             if (!mesg) return state;
-            // TODO:
-            return state;
+            const licence = { ...state.licence }
+            mesg.getLicenceList().map(m => licence[m.getModule()] = m.toObject())
+            return { ...state, licence };
         }
         case '/msp/v2/sys/licence/expire/config': {
-            const { payload } = action;
-            const mesg = new pb.LicenceState()
-            mesg.setModule(payload.module)
-            mesg.setValue(payload.value)
-            mesg.setEffecdue(payload.days)
+            const mesg = new pb.LicenceStateList()
+            for (let i in state.licence) {
+                const { module, days } = state.licence[i];
+                const licstate = new pb.LicenceState()
+                licstate.setModule(module)
+                licstate.setValue(true)
+                licstate.setEffecdue(days)
+            }
             const body = new proto.google.protobuf.Any()
-            body.pack(mesg.serializeBinary(), 'msp.cnt.sys.LicenceState')
+            body.pack(mesg.serializeBinary(), 'msp.cnt.sys.LicenceStateList')
             send({ evt: action.type, body });
             return state;
         }
-        case '/msp/v2/sys/licence/expire/config/ack': {            
+        case '/msp/v2/sys/licence/expire/config/ack': {
             return state;
         }
         case '/msp/v2/sys/licence/expire/updata': {

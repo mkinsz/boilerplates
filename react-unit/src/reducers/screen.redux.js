@@ -131,6 +131,7 @@ export const mspsScreenCfg = (state = initialCfgState, action) => {
         case '/msp/v2/tv/config':
             {
                 const { payload } = action;
+                state.tip=payload.tip
                 const mesg = new pb.TvInfo()
                 console.log('save wallll', payload.wallInfo.cells)
                 const base = new pb.TvBasic(Object.values(payload.wallInfo.wall))
@@ -155,6 +156,10 @@ export const mspsScreenCfg = (state = initialCfgState, action) => {
                 return state
             }
         case '/msp/v2/tv/config/ack': {
+            if(!action.err)
+                state.tip.success()
+            else
+                return state    
             const mesg = action.body.unpack(pb.ValueU32.deserializeBinary, 'msp.cnt.ValueU32')
             const backID = mesg.getValue()
             console.log('add wall:', backID)

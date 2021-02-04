@@ -138,8 +138,10 @@ const LayoutInput = ({ value = {}, onChange, disabled, origin }) => {
         const tv = newTvs[cell.id] || {}
         tv.id = cell.id
         tv.arrayinList = []
-        if (tv.outid != cell.chnout) {
-            dispatch({ type: '' })
+        if(tv.outid != cell.chnout) {
+            tv.outid && dispatch({type: '/msp/v2/chn/change', payload: {type: 8, id: tv.outid, property: 'signal', value: false}})
+            // cell.chnout && dispatch({type: '/msp/v2/chn/change', payload: {type: 8, id: cell.chnout, property: 'signal', value: true}})
+            tv.outid = cell.chnout
         }
         if (cell.chnin) tv.arrayinList = [cell.chnin]
         newTvs[cell.id] = tv
@@ -160,18 +162,13 @@ const LayoutInput = ({ value = {}, onChange, disabled, origin }) => {
         for (let i = 0; i < row; ++i) {
             for (let j = 0; j < col; ++j) {
                 const index = j + col * i;
-                const tvData = tvls[index] || {}
-                const outid = tvData.outid || null;
-                const inids = tvData.arrayinList || []
-                const ooutid = tvs.length && tvs[index] && tvs[index].outid
+                const tvdat = tvls[index] || {};
+                const outid = tvdat.outid || null;
+                const inids = tvdat.arrayinList || [];
+                const orgid = tvs.length && tvs[index] && tvs[index].outid;
 
                 const couts = vouts.reduce((t, m) => {
-                    const sel_ext = sel_outs.find(n => n == m.id)
-                    const org_ext = org_outs.find(n => n == m.id)
-                    if(!m.signal ) t.push(m)
-                    if(m.id == outid) {
-                        !t.find(n => n.id == outid) && t.push(m)
-                    }
+                    if(m.id == outid || !m.signal) t.push(m)
                     return t;
                 }, [])
 

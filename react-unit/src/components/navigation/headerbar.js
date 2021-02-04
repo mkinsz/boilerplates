@@ -77,7 +77,7 @@ const HeaderBar = props => {
       content: (
         <div style={{ margin: '20px 0 0 0' }}>
           <p>{logoComponent}</p>
-          <p>晶灵MSP1000(1.3.1.17286 - 2021.2.2</p>
+          <p>晶灵MSP1000(1.3.1.17327 - 2021.2.4)</p>
           {/* <p>苏州科达科技股份有限公司 版权所有</p> */}
           <p>Copyright &copy; 2021 KEDACOM. All rights reserved.</p>
           <a href="https://www.kedacom.com"> https://www.kedacom.com </a>

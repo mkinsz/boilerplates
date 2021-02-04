@@ -113,6 +113,7 @@ export default (state = initialCfgState, action) => {
         }
         case '/msp/v2/safe/filterform/config': {
             const { payload } = action;
+            state.tip = payload.tip
             const mesg = new pb.FilterForm()
             mesg.setValue(payload.type)
             mesg.setIpList(payload.ips)
@@ -127,6 +128,7 @@ export default (state = initialCfgState, action) => {
             return state
         }
         case '/msp/v2/safe/filterform/config/ack': {
+            if (!action.err)state.tip.success()
             return state;
         }
         case '/msp/v2/safe/filter/updata':
