@@ -18,9 +18,40 @@ let recnum = 0;
 					   -> login & token
 */
 
+class Queue {
+	constructor() {
+		this.queue = []
+	}
+	enqueue(obj) {
+		this.queue.push(obj)
+	}
+	dequeue() {
+		return this.queue.shift();
+	}
+	clear() {
+		this.queue = []
+	}
+	length() {
+		return this.queue.length
+	}
+	empty() {
+		return this.queue.length ? false : true;
+	}
+}
+
+const msgpool = new Queue()
+
+const msgworker = async () => {
+	while(!msgpool.empty()) {
+		const msg = msgpool.dequeue();
+		setTimeout(() => request(msg), 0)
+	}
+}
+
 const send = msg => {
 	if (!socket || WebSocket.OPEN != socket.readyState || !opened) {
-		socket && console.warn("ws error：", socket, socket.readyState)
+		// socket && console.warn("ws error：", socket, socket.readyState)
+		msgpool.enqueue(msg)
 		return;
 	}
 
@@ -113,6 +144,7 @@ const open = (resolve) => {
 	console.log('ws open...');
 	opened = true;
 	ktimer = setInterval(() => AUTH.keepalive(), 5000);
+	msgworker();
 	resolve(true)
 }
 
@@ -125,6 +157,7 @@ const close = (e, url = null) => {
 	clearInterval(ktimer);
 	console.log('ws close...', 'code:', e.code, 'was-clean:', e.wasClean, 'reason:', e.reason)
 
+	msgpool.clear();
 	if(!manual) {
 		AUTH.disconnect()
 		setTimeout(() => reconnect(url), 5000)

@@ -149,7 +149,7 @@ const Home = props => {
 		const isNotExpire = (to, td) => to - td > 0 ? true : false
 
 		const lic_menus = uselic.reduce((t, m, i, a) => {
-			switch(i) {
+			switch (i) {
 				case 0: break;
 				case 1: isNotExpire(a[i], unix_timestamp) && t.push(AuthRoutes.tv_menu); break;
 				case 2: break;
@@ -159,8 +159,8 @@ const Home = props => {
 			}
 			return t;
 		}, [])
-		
-		if(lic_menus.length == 0) {
+
+		if (lic_menus.length == 0) {
 			lic_menus.push(AuthRoutes.cfg_menu)
 			return lic_menus;
 		}

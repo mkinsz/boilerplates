@@ -581,13 +581,14 @@ export default (state = init_state, action) => {
             console.log('windows updata: ---> ', opc, win)
 
             const {id: schid, tvid} = state.curschm;
-            if(win.tvid != tvid || win.schemeid != schid) return state; 
+            if(win.tvid != tvid || win.sceneid != schid) return state; 
 
             const windows = { ...state.windows }
             const tvwinds = windows[win.tvid]
             if (!tvwinds) return state;
             if (tvwinds.schid != win.sceneid) return state;
 
+            // console.log('0: ', tvwinds, tvwinds.schid, win.sceneid)
             const index = tvwinds.wins.findIndex(m => m.id == win.id)
             if (-1 == index) {
                 if (OPCODE.OPOPEN == opc) {
@@ -598,7 +599,7 @@ export default (state = init_state, action) => {
             }
             const origwin = tvwinds.wins[index]
 
-            console.log('1: ', index, tvwinds.wins)
+            // console.log('1: ', index, tvwinds.wins)
 
             switch (opc) {
                 case OPCODE.OPUP: origwin.layer += 1; break;
@@ -611,7 +612,7 @@ export default (state = init_state, action) => {
                 case OPCODE.OPCLEAN: delete windows[win.tvid]; break;
             }
 
-            console.log('2: ', index, tvwinds.wins)
+            // console.log('2: ', index, tvwinds.wins)
             return { ...state, windows };
         }
         case '/msp/v2/windows/audio/query': {

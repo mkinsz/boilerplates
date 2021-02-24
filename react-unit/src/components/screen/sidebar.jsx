@@ -95,10 +95,10 @@ const PositionForm = props => {
                         disabled={disabled || !checked} min={0} max={values.h} /></Form.Item>
                 <Form.Item label='W' name='cw' labelCol={{ span: 7, offset: 0 }} style={{ height: 30 }} >
                     <InputNumber style={{ width: 'inherit', height: 30 }} formatter={v => v.replace(/[^\d]/g, '')}
-                        disabled={disabled || !checked} min={1} max={values.w} /></Form.Item>
+                        disabled={disabled || !checked} min={10} max={values.w} /></Form.Item>
                 <Form.Item label='H' name='ch' labelCol={{ span: 7, offset: 0 }} style={{ height: 30 }} >
                     <InputNumber style={{ width: 'inherit', height: 30 }} formatter={v => v.replace(/[^\d]/g, '')}
-                        disabled={disabled || !checked} min={1} max={values.h} /></Form.Item>
+                        disabled={disabled || !checked} min={10} max={values.h} /></Form.Item>
             </div>
 
             <div className='row_layout'>
