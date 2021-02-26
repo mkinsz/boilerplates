@@ -1,14 +1,12 @@
 import React from "react";
 import "./App.css";
 import "./assets/font/iconfont.css";
-import Test from './components/Test'
+import SimpleSiderbar from './components/SimpleSiderbar'
+import routes from './components/routes'
 
 const App = () => {
   return (
-    <>
-      <div>Flexible</div>
-      <Test></Test>
-    </>
+      <SimpleSiderbar routes={routes}/>
   );
 };
 
