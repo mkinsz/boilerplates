@@ -41,22 +41,9 @@ export const mspsAuth = (state = initialState, action) => {
 		}
 		case '/msp/v2/authen/login/ack': {
 			const body = action.body.unpack(pb.LoginAck.deserializeBinary, 'msp.cnt.user.LoginAck')
-			const count = body.getCount()
-			if (action.err == 20002) {
-				!count ? message.warning('账号已锁定...') :
-					message.warning(`账户名密码不正确, ${count}次后被锁定...`)
-				return state;
-			}
-
 			const token = action.token;
-
-			const id = body.getId()
-			const tp = body.getType()
-
 			setToken(token);
-			setAuthType(tp);
-			
-			return { ...state, id, token, type: tp, occupy: false, manulogout:false }
+			return { ...state, token, manulogout:false }
 		}
 		case '/msp/v2/authen/logout': {
 			send({ evt: action.type })

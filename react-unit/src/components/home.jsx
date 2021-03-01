@@ -48,36 +48,6 @@ const Home = props => {
 
 	const dispatch = useDispatch()
 
-	// useEffect(() => {
-	//     // 监听用户长时间不操作后自动退出登录
-	//     let currTime = new Date().getTime(),
-	//         lastTime = new Date().getTime()
-	//     // 设置自动失效时长
-	//     const diff = 1000 * 60 * 20;
-	//     const handleTimeout = () => {
-	// 		lastTime = new Date().getTime();
-	// 		// console.log("HandleTimeout: ", currTime - lastTime)
-	//     }
-	//     $(document).on('mouseover', handleTimeout);
-	//     const timer = setInterval(async () => {
-	// 		currTime = new Date().getTime();
-	// 		// console.log('Timeout Interval: ', currTime - lastTime, diff)
-	//         if (currTime - lastTime > diff) {
-	// 			//  清除登录状态操作
-	// 			AUTH.logout()
-	// 			AUTH.remove()
-	// 			AUTH.release()
-	// 			history.push("/login")
-	//             clearInterval(timer);
-	//         }
-	//     }, 1000);
-
-	//     return () => {
-	// 		clearInterval(timer);
-	//         $(document).off('mouseover', handleTimeout);
-	//     }
-	// })
-
 	useEffect(() => {
 		dispatch({ type: '/msp/v2/sys/licence/query' })
 		dispatch({ type: '/msp/v2/sys/licence/detail/query' })
@@ -106,23 +76,6 @@ const Home = props => {
 			})
 		}
 	}, [licence])
-
-	useEffect(() => {
-		if (auth.occupy) {
-			message.warning('账号异地登录，即将退出...', 1, async () => {
-				AUTH.remove()
-				ws.release();
-				history.push('/login')
-			})
-		}
-
-		if (!session.isAuth() && !auth.manulogout) {
-			message.warning('令牌或者链路失效，即将退出...', 1, async () => {
-				ws.release();
-				history.push('/login')
-			})
-		}
-	}, [auth]);
 
 	const handleCollapsed = (collapsed, type) => {
 		if (type == 'responsive') return;

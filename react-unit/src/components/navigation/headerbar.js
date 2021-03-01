@@ -63,11 +63,6 @@ const HeaderBar = props => {
 
   const handleOut = async () => {
     dispatch({ type: '/msp/v2/chn/query', payload: { clear: true } })
-
-    AUTH.logout()
-    AUTH.remove()
-    try { await ws.release() } catch (e) { console.log('ws releae:', e) }
-    history.push('/login')
   };
 
   const handleAbout = () => {
@@ -100,7 +95,7 @@ const HeaderBar = props => {
       <Menu.ItemGroup title={titleComponent}>
         <Menu.Item onClick={handleAbout}>关于</Menu.Item>
         {/* <Menu.Item onClick={handleModify}>修改密码</Menu.Item> */}
-        <Menu.Item onClick={handleOut}>退出登录</Menu.Item>
+        {/* <Menu.Item onClick={handleOut}>退出登录</Menu.Item> */}
       </Menu.ItemGroup>
     </Menu>
   );

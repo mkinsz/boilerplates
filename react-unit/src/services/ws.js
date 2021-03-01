@@ -200,14 +200,7 @@ const init = async () => {
 	manual = false;
 
 	let url = 'https:' === location.protocol ? 'wss://' : 'ws://';
-	if (process.env.NODE_ENV == 'production') {
-		await fetch('/static/global-config.json').then(res => res.json()).then(data => {
-			url += data.host ? window.location.hostname : data.server
-		}).catch(e => console.log(e))
-	} else {
-		url += DEBUG_ADDR;
-	}
-
+	url += process.env.NODE_ENV == 'production' ? window.location.hostname : DEBUG_ADDR
 	url += ':28712'
 	await connect(url)
 }

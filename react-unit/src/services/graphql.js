@@ -3,11 +3,7 @@ import log from '../utils/log'
 let host
 
 const getHost = async () => {
-	if (process.env.NODE_ENV == 'production')
-		await fetch('/static/global-config.json').then(res => res.json()).then(data => {
-			host = data.host ? window.location.hostname : data.server
-		}).catch(e => console.log(e))
-	else host = '10.67.12.106'
+	host = process.env.NODE_ENV == 'production' ? window.location.hostname : '10.67.12.106'
 	// else host = '10.67.76.94'
 	host += ':8090'
 }

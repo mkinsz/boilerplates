@@ -167,7 +167,7 @@ const Log = function (isLog) {
 	}
 }(true);
 
-Log.debug("debug message");
-Log.info("logg info: " + "message");
-Log.warn("log warn: " + "message");
-Log.error("log error: " + "message");
+// Log.debug("debug message");
+// Log.info("logg info: " + "message");
+// Log.warn("log warn: " + "message");
+// Log.error("log error: " + "message");

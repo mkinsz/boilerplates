@@ -14,14 +14,14 @@ const About = React.lazy(() => import('../about'))
 const MainRoute = () => (
         <React.Suspense fallback={null}>
             <Switch>
-                <AuthRoute path='/screen' component={Screen} />
-                <AuthRoute path='/center' component={Center} />
-                <AuthRoute path='/matrix' component={Matrix} />
-                <AuthRoute path='/route/:id?' component={MediaRoute} />
-                <AuthRoute path='/config' component={Config} />
-                <AuthRoute path='/display' component={Status} />
-                <AuthRoute path='/maintain' component={Maintain} />
-                <AuthRoute path='/about' component={About} />
+                <Route path='/screen' component={Screen} />
+                <Route path='/center' component={Center} />
+                <Route path='/matrix' component={Matrix} />
+                <Route path='/route/:id?' component={MediaRoute} />
+                <Route path='/config' component={Config} />
+                <Route path='/display' component={Status} />
+                <Route path='/maintain' component={Maintain} />
+                <Route path='/about' component={About} />
                 <Redirect to='/screen' />
             </Switch>
         </React.Suspense>

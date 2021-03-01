@@ -1,24 +1,22 @@
 import React, { useEffect } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { AuthRoute } from './components/public';
+import { AUTH } from './actions'
 import { isAuth } from './utils';
 import * as ws from './services'
 import './styles/index.less'
 
 const Home = React.lazy(() => import('./components/home'));
-const Login = React.lazy(() => import('./components/login'));
 
-const connect = () => {
-	if (ws.status() !== WebSocket.OPEN ||
-		ws.status() !== WebSocket.CONNECTING) ws.init();
-}
-if (isAuth()) connect();
+ws.init();
 
 const App = props => {
+	useEffect(() => {
+		AUTH.login('mspspec', 'admin123')
+	}, [])
+
 	return <React.Suspense fallback={null}>
 		<Switch>
-			<Route exact path='/login' component={Login} />
-			<AuthRoute path='/' component={Home} />
+			<Route path='/' component={Home} />
 		</Switch>
 	</React.Suspense>
 };
