@@ -17,6 +17,14 @@ const initialState = {
 
 const QUERY_SIZE = 16;
 
+const query_lic = () => {
+	send({evt: "/msp/v2/sys/licence/query"})
+	const mesg = new pb.Query()
+	const body = new proto.google.protobuf.Any()
+	body.pack(mesg.serializeBinary(), 'msp.cnt.Query')
+	send({ evt: "/msp/v2/sys/licence/detail/query", body });
+}
+
 export const mspsAuth = (state = initialState, action) => {
 	switch (action.type) {
 		case 'MSP_CONNECT': {
@@ -40,10 +48,33 @@ export const mspsAuth = (state = initialState, action) => {
 			return state;
 		}
 		case '/msp/v2/authen/login/ack': {
-			const body = action.body.unpack(pb.LoginAck.deserializeBinary, 'msp.cnt.user.LoginAck')
+			const recv = action.body.unpack(pb.LoginAck.deserializeBinary, 'msp.cnt.user.LoginAck')
+			const unlogin = !isNaN(Number(window.localStorage.getItem('_msp_nologin_flag_')))
+			if(unlogin) {
+				const token = action.token;
+				setToken(token);
+				query_lic()
+				return { ...state, token, manulogout:false }
+			}
+
+			const count = recv.getCount()
+			if (action.err == 20002) {
+				!count ? message.warning('账号已锁定...') :
+					message.warning(`账户名密码不正确, ${count}次后被锁定...`)
+				return state;
+			}
+
 			const token = action.token;
+
+			const id = recv.getId()
+			const tp = recv.getType()
+
 			setToken(token);
-			return { ...state, token, manulogout:false }
+			setAuthType(tp);
+			
+			query_lic()		
+
+			return { ...state, id, token, type: tp, occupy: false, manulogout:false }
 		}
 		case '/msp/v2/authen/logout': {
 			send({ evt: action.type })
@@ -57,6 +88,8 @@ export const mspsAuth = (state = initialState, action) => {
 			return { ...state, occupy: true };
 		}
 		case '/msp/v2/authen/notify': {
+			if(!isNaN(Number(window.localStorage.getItem('_msp_nologin_flag_')))) return state;
+
 			const body = action.body.unpack(pb.Notify.deserializeBinary, 'msp.cnt.Notify')
 			const status = body.getState()
 			console.log('=> auth notify', status)

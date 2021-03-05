@@ -49,8 +49,8 @@ const Home = props => {
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		dispatch({ type: '/msp/v2/sys/licence/query' })
-		dispatch({ type: '/msp/v2/sys/licence/detail/query' })
+		// dispatch({ type: '/msp/v2/sys/licence/query' })
+		// dispatch({ type: '/msp/v2/sys/licence/detail/query' })
 		return () => Modal.destroyAll();
 	}, [])
 
@@ -76,6 +76,26 @@ const Home = props => {
 			})
 		}
 	}, [licence])
+
+	useEffect(() => {
+		const unlogin = !isNaN(Number(window.localStorage.getItem('_msp_nologin_flag_')))
+		if(unlogin) return;
+
+		if (auth.occupy) {
+			message.warning('账号异地登录，即将退出...', 1, async () => {
+				AUTH.remove()
+				ws.release();
+				history.push('/login')
+			})
+		}
+
+		if (!session.isAuth() && !auth.manulogout) {
+			message.warning('令牌或者链路失效，即将退出...', 1, async () => {
+				ws.release();
+				history.push('/login')
+			})
+		}
+	}, [auth]);
 
 	const handleCollapsed = (collapsed, type) => {
 		if (type == 'responsive') return;

@@ -7,6 +7,7 @@ const AUTH_TYPE = LOCAL_MD5 + '_auth_type_'
 const LOGIN_COOKIE_REM = '_msp_session_rem_'
 const LOGIN_COOKIE_NAME = '_msp_session_id_';
 const LOGIN_COOKIE_PASS = '_msp_session_psd_';
+const UNLOGIN_COOKIE_PASS = '_msp_nologin_flag_';
 
 export const isAuth = () => {
   return getToken();
@@ -58,6 +59,14 @@ export const setAuthType = type => {
 
 export const getAuthType = () => {
   return window.localStorage.getItem(AUTH_TYPE)
+}
+
+export const setUnlogin = nologin => {
+  window.localStorage.setItem(UNLOGIN_COOKIE_PASS, nologin)
+}
+
+export const getUnlogin = () => {
+  return window.localStorage.getItem(UNLOGIN_COOKIE_PASS)
 }
 
 const _getCookie = name => {
