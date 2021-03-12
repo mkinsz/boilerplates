@@ -21,8 +21,6 @@ window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value)
 
 const nologin = !isNaN(Number(vars['nl']))
 
-console.log('-----> ', vars, nologin)
-
 if (nologin) {
 	setUnlogin(1)
 	window.nologin = true;
@@ -31,7 +29,8 @@ if (nologin) {
 	AUTH.login('mspspec', 'admin123')
 	setUser('mspspec')
 } else {
-	setToken()
+	// const unl = !isNaN(Number(getUnlogin()))
+	// if(!unl) setToken()
 	setUnlogin(0)
 	window.nologin = false;
 	if (isAuth()) connect();

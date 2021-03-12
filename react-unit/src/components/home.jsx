@@ -49,8 +49,11 @@ const Home = props => {
 	const dispatch = useDispatch()
 
 	useEffect(() => {
-		// dispatch({ type: '/msp/v2/sys/licence/query' })
-		// dispatch({ type: '/msp/v2/sys/licence/detail/query' })
+		setTimeout(() => {
+			dispatch({ type: '/msp/v2/sys/licence/query' })
+			dispatch({ type: '/msp/v2/sys/licence/detail/query' })
+		}, 1000)
+		
 		return () => Modal.destroyAll();
 	}, [])
 
